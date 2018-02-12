@@ -7,21 +7,29 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DateInputComponent } from './components/date-input/date-input.component';
-
+import { LogFormComponent } from './components/log-form/log-form.component';
+import { LogItemComponent } from './components/log-item/log-item.component';
+import { EnumKeysPipe } from './pipes/keys.pipe';
+import { LogsService } from './services/logs.service';
+import { HttpModule } from '@angular/http';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DateInputComponent
+    DateInputComponent,
+    EnumKeysPipe,
+    LogFormComponent,
+    LogItemComponent
   ],
   imports: [
     BrowserModule,
     FormsModule, 
     ReactiveFormsModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    HttpModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ LogsService ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

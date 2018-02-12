@@ -1,0 +1,66 @@
+<div class="log-info">
+  <form [formGroup]="reactiveForm" (ngSubmit)="onGetLogs(reactiveForm.value)">
+    <div class="row">
+      <div class="navbar navbar-default">
+        <!-- <div class="col-xs-1">
+          <input style="margin-top: 7px;" type="text" id="time-val" class="form-control" formControlName="timeFrom" readonly>
+        </div> -->
+        <ul class="nav navbar-nav">
+          <li style="margin-left:15px; padding-top:15px; padding-bottom:15px;"><b>Select date range:</b></li>
+          <li><a (click)="onSetRange($event)">5 min</a></li>
+          <li><a (click)="onSetRange($event)">1 hour</a></li>
+          <li><a (click)="onSetRange($event)">6 hours</a></li>
+          <li><a (click)="onSetRange($event)">1 day</a></li>
+          <li><a (click)="onSetRange($event)">1 week</a></li>
+        </ul>
+        <div *ngIf="dateFrom" style="margin-left:15px; padding-top:15px; padding-bottom:15px; float:right;"><b>From:</b> {{dateFrom | date:'medium'}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2"><label for="level-select">Level:</label></div>
+      <div class="col-sm-4">
+        <select class="form-control" id="level-select" formControlName="level">
+          <option *ngFor="let item of levels | enums" [value]="item.value">{{item.key}}</option>
+        </select>
+        <div class="alert" *ngIf="!reactiveForm.controls['level'].valid && reactiveForm.controls['level'].touched">{{ titleAlert }}</div>
+      </div>
+      <div class="col-sm-2"><label for="app-code">App Code:</label></div>
+      <div class="col-sm-4">
+        <select *ngIf="!input" class="form-control" id="app-code" formControlName="appCode">
+          <option *ngFor="let item of levels | enums" [value]="item.value">{{item.key}}</option>
+        </select>
+        <input *ngIf="input" type="text" id="app-code" class="form-control" formControlName="appCode">
+        <div class="alert" *ngIf="!reactiveForm.controls['appCode'].valid && reactiveForm.controls['appCode'].touched">{{ titleAlert }}</div>
+      </div>
+      <!-- <a class="btn btn-success" (click)="onSwitchInput($event)">{{ switchBtn }}</a> -->
+    </div>
+    <div class="row">
+      <div class="col-sm-2"><label for="event">Event:</label></div>
+      <div class="col-sm-4">
+        <input type="text" id="event" class="form-control" formControlName="event">
+        <div class="alert" *ngIf="!reactiveForm.controls['event'].valid && reactiveForm.controls['event'].touched">{{ titleAlert }}</div>
+      </div>
+      <div class="col-sm-2"><label for="company-id">Company Id:</label></div>
+      <div class="col-sm-4">
+        <input type="text" id="company-id" class="form-control" formControlName="companyId">
+        <div class="alert" *ngIf="!reactiveForm.controls['companyId'].valid && reactiveForm.controls['companyId'].touched">{{ titleAlert }}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2"><label for="site-id">Site Id:</label></div>
+      <div class="col-sm-4">
+        <input type="text" id="site-id" class="form-control" formControlName="siteId">
+        <div class="alert" *ngIf="!reactiveForm.controls['siteId'].valid && reactiveForm.controls['siteId'].touched">{{ titleAlert }}</div>
+      </div>
+      <div class="col-sm-2"><label for="order-id">Order Id:</label></div>
+      <div class="col-sm-4">
+        <input type="text" id="order-id" class="form-control" formControlName="orderId">
+        <div class="alert" *ngIf="!reactiveForm.controls['orderId'].valid && reactiveForm.controls['orderId'].touched">{{ titleAlert }}</div>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="!reactiveForm.valid">Get Logs</button>
+  </form>
+</div>
+<div class="logs-list" *ngIf="logItems">
+  <app-log-item *ngFor="let logItem of logItems" [log]="logItem"></app-log-item>
+</div>

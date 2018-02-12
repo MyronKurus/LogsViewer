@@ -1,0 +1,33 @@
+label {
+    vertical-align: -webkit-baseline-middle;
+    margin-bottom: 0;
+}
+
+.row {
+    margin: 20px -15px;
+}
+
+.alert {
+    background: #cfcec6;
+    margin-bottom: 0;
+    margin-top: 5px;
+    padding: 5px;
+    font-size: .9em;
+    animation: .5s alertAnimation forwards;
+    color: rgba(255, 19, 19, 1);
+}
+
+a.btn-success {
+    min-width: 126px;
+}
+
+@keyframes alertAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
