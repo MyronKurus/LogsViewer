@@ -25,10 +25,14 @@ export class DateInputComponent {
     fromDate: NgbDateStruct;
     toDate: NgbDateStruct;
     show: boolean = false;
+
+    inputDate: string;
   
     constructor(calendar: NgbCalendar) {
       this.fromDate = calendar.getPrev(calendar.getToday(), 'd', 10);
       this.toDate = calendar.getToday();
+      // console.log(this.toDate);
+      this.inputDate = formatDate(this.fromDate, this.toDate);
     }
   
     onDateChange(date: NgbDateStruct) {
@@ -81,5 +85,10 @@ function  setHours() {
 
 function setSeconds() {
   return new Date().setSeconds(0, 0);
+}
+
+function formatDate(from: NgbDateStruct, till: NgbDateStruct) {
+  return 'From: ' + from.year + '-' + from.month + '-' + from.day +
+        ' | To: ' + till.year + '-' + till.month + '-' + till.day
 }
 

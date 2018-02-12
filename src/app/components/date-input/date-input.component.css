@@ -22,7 +22,8 @@
     cursor: pointer;
 }
 
-ngb-datepicker.ng-untouched.ng-pristine.ng-valid {
+ngb-datepicker.ng-untouched.ng-pristine.ng-valid,
+ngb-datepicker.ng-valid.ng-touched.ng-dirty {
   background: #fff;
   position: absolute;
   z-index: 101;
