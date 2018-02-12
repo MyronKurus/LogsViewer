@@ -14,3 +14,15 @@
 
 <hr/>
 <pre>Model: {{ model | json }}</pre>
+
+<nav aria-label="breadcrumb">
+  <ul class="nav">
+    <li class="nav-item"><b>Select date range:</b></li>
+    <li class="nav-item"><a (click)="onSetRange($event)">5 min</a></li>
+    <li class="nav-item"><a (click)="onSetRange($event)">1 hour</a></li>
+    <li class="nav-item"><a (click)="onSetRange($event)">6 hours</a></li>
+    <li class="nav-item"><a (click)="onSetRange($event)">1 day</a></li>
+    <li class="nav-item"><a (click)="onSetRange($event)">1 week</a></li>
+  </ul>
+  <div *ngIf="dateFrom" style="margin-left:15px; padding-top:15px; padding-bottom:15px; float:right;"><b>From:</b> {{dateFrom | date:'medium'}}</div>
+</nav>
