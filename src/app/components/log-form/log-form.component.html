@@ -1,22 +1,6 @@
 <div class="log-info">
   <form [formGroup]="reactiveForm" (ngSubmit)="onGetLogs(reactiveForm.value)">
     <div class="row">
-      <div class="navbar navbar-default">
-        <!-- <div class="col-xs-1">
-          <input style="margin-top: 7px;" type="text" id="time-val" class="form-control" formControlName="timeFrom" readonly>
-        </div> -->
-        <ul class="nav navbar-nav">
-          <li style="margin-left:15px; padding-top:15px; padding-bottom:15px;"><b>Select date range:</b></li>
-          <li><a (click)="onSetRange($event)">5 min</a></li>
-          <li><a (click)="onSetRange($event)">1 hour</a></li>
-          <li><a (click)="onSetRange($event)">6 hours</a></li>
-          <li><a (click)="onSetRange($event)">1 day</a></li>
-          <li><a (click)="onSetRange($event)">1 week</a></li>
-        </ul>
-        <div *ngIf="dateFrom" style="margin-left:15px; padding-top:15px; padding-bottom:15px; float:right;"><b>From:</b> {{dateFrom | date:'medium'}}</div>
-      </div>
-    </div>
-    <div class="row">
       <div class="col-sm-2"><label for="level-select">Level:</label></div>
       <div class="col-sm-4">
         <select class="form-control" id="level-select" formControlName="level">
@@ -31,8 +15,8 @@
         </select>
         <input *ngIf="input" type="text" id="app-code" class="form-control" formControlName="appCode">
         <div class="alert" *ngIf="!reactiveForm.controls['appCode'].valid && reactiveForm.controls['appCode'].touched">{{ titleAlert }}</div>
+        <a style="position: absolute; top: 8px; right: 35px;" (click)="onSwitchInput($event)"><fa name="pencil"></fa></a>
       </div>
-      <!-- <a class="btn btn-success" (click)="onSwitchInput($event)">{{ switchBtn }}</a> -->
     </div>
     <div class="row">
       <div class="col-sm-2"><label for="event">Event:</label></div>

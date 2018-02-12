@@ -1,0 +1,10 @@
+fieldset {
+    border: 1px solid;
+}
+
+legend {
+    width: initial;
+    max-width: initial;
+    margin-left: 20px;
+    padding: 0 10px;
+}

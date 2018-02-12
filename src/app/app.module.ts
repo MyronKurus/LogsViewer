@@ -12,6 +12,7 @@ import { LogItemComponent } from './components/log-item/log-item.component';
 import { EnumKeysPipe } from './pipes/keys.pipe';
 import { LogsService } from './services/logs.service';
 import { HttpModule } from '@angular/http';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { HttpModule } from '@angular/http';
     BrowserModule,
     FormsModule, 
     ReactiveFormsModule,
+    AngularFontAwesomeModule,
     NgbModule.forRoot(),
     HttpModule
   ],
