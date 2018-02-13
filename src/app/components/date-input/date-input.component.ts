@@ -37,17 +37,17 @@ export class DateInputComponent {
     onDateChange(date: NgbDateStruct) {
       if (!this.fromDate && !this.toDate) {
         this.fromDate = date;
-        this.dateFrom = convertDate(this.fromDate);
+        this.dateFrom = new Date(convertDate(this.fromDate).setUTCHours(0, 0, 0)).toISOString();
       } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
         this.toDate = date;
-        this.dateTill = convertDate(this.toDate);
+        this.dateTill = new Date(convertDate(this.toDate).setUTCHours(23, 59, 59)).toISOString();
       } else {
         this.toDate = null;
         this.fromDate = date;
-        this.dateFrom = convertDate(this.fromDate);
+        this.dateFrom = new Date(convertDate(this.fromDate).setUTCHours(0, 0, 0)).toISOString();
       }
       this.inputDate = formatDate(this.fromDate, this.toDate);
-      console.log(this.dateFrom, this.dateTill);
+      console.log(this.dateFrom + " | " + this.dateTill);
     }
   
   isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
@@ -68,26 +68,31 @@ export class DateInputComponent {
         this.dateTill = new Date().toISOString();
         this.dateFrom = new Date(setSeconds() - (1000*60*5)).toISOString();
         this.inputDate = 'last 5 min';
+        console.log(this.dateFrom + " | " + this.dateTill);
         break;
       case '1 hour':
         this.dateTill = new Date().toISOString();
         this.dateFrom = new Date(setSeconds() - (1000*60*60)).toISOString();
         this.inputDate = 'last hour';
+        console.log(this.dateFrom + " | " + this.dateTill);
         break;
       case '6 hours':
         this.dateTill = new Date().toISOString();
         this.dateFrom = new Date(setSeconds() - (1000*60*60*6)).toISOString();
         this.inputDate = 'last 6 hours';
+        console.log(this.dateFrom + " | " + this.dateTill);
         break;
       case '1 day':
         this.dateTill = new Date().toISOString();
         this.dateFrom = new Date(setHours() - (1000*60*60*24)).toISOString();
         this.inputDate = 'last day';
+        console.log(this.dateFrom + " | " + this.dateTill);
         break;
       case '1 week':
         this.dateTill = new Date().toISOString();
         this.dateFrom = new Date(setHours() - (1000*60*60*24*7)).toISOString();
         this.inputDate = 'last week';
+        console.log(this.dateFrom + " | " + this.dateTill);
         break;
     }
   }
@@ -116,6 +121,6 @@ function convertDate(obj: NgbDateStruct) {
   for(let key in obj) {
     dateArr.push(obj[key]);
   }
-  return new Date(dateArr[0], dateArr[1]-1, dateArr[2]).toISOString();
+  return new Date(dateArr[0], dateArr[1]-1, dateArr[2]+1);
 }
 
