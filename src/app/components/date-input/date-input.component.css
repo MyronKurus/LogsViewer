@@ -28,3 +28,7 @@ ngb-datepicker.ng-valid.ng-touched.ng-dirty {
   position: absolute;
   z-index: 101;
 }
+
+.form-control[readonly] {
+  background: #fff;
+}
