@@ -10,10 +10,23 @@ import 'rxjs/add/observable/of';
 @Injectable()
 export class LogsService {
 
+    dateFrom;
+    dateTill;
+
     constructor(private http:Http ) {}
 
     getItems(): Observable<any[]> {
         return Observable.of(logs)
             .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    setDateFrom(date) {
+        this.dateFrom = date;
+        console.log(this.dateFrom);
+    }
+
+    setDateTill(date) {
+        this.dateTill = date;
+        console.log(this.dateTill);
     }
 }
