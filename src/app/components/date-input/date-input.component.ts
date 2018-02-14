@@ -83,26 +83,15 @@ export class DateInputComponent {
         period = (1000*60*60*24*7);
         break;
     }
-    
-    const setTimeRange = (val === '1 day' || val === '1 week') ? setHours : setSeconds;
-    this.dateTill = (val === '1 day' || val === '1 week') ? 
-                    new Date(endOfDay() - (1000*60*60*24)).toISOString() : new Date().toISOString();
-    this.dateFrom = new Date(setTimeRange() - period).toISOString();
+    this.dateTill = new Date().toISOString();
+    this.dateFrom = new Date(setSeconds() - period).toISOString();
     this.logsService.setDateFrom(this.dateFrom);
     this.logsService.setDateTill(this.dateTill);
   }
 }
 
-function setHours() {
-  return new Date().setUTCHours(0, 0, 0, 0);
-}
-
-function endOfDay() {
-  return new Date().setUTCHours(23, 59, 59, 999)
-}
-
 function setSeconds() {
-  return new Date().setSeconds(0, 0);
+  return new Date().setMilliseconds(0);
 }
 
 function formatDate(from: NgbDateStruct, till: NgbDateStruct) {

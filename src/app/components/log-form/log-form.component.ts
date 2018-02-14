@@ -24,9 +24,9 @@ export class LogFormComponent {
       'level': [null],
       'appCode': [null],
       'event': [null],
-      'companyId': [null],
-      'siteId': [null],
-      'orderId': [null]
+      'company_id': [null],
+      'site_id': [null],
+      'order_id': [null]
     });
   }
 

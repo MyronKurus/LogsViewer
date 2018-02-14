@@ -29,22 +29,12 @@ export class LogsService {
     }
 
     generatePath(data) {
-      // let dataArr: any[] = [];
-      // for(let key in data) {
-      //   if(!data[key]) {
-      //     data.delete
-      //   }
-      // }
-      // console.log(dataArr);
-
       let path = `/es?$skip=2&$top=2&&$filter=created_at le ${this.dateFrom} and created_at gt ${this.dateTill}`
       for(let key in data) {
         if(data[key]) {
           path += ` and ${key} eq ${data[key]}`;
         }
       }
-
-      //and company_id eq ‘111111111111’`
       console.log(path);
     }
 
