@@ -13,7 +13,7 @@ export class LogsService {
     dateFrom;
     dateTill;
 
-    constructor(private http:Http ) {}
+    constructor(private http:Http) {}
 
     getItems(): Observable<any[]> {
         return Observable.of(logs)
@@ -22,11 +22,30 @@ export class LogsService {
 
     setDateFrom(date) {
         this.dateFrom = date;
-        console.log(this.dateFrom);
     }
 
     setDateTill(date) {
         this.dateTill = date;
-        console.log(this.dateTill);
     }
+
+    generatePath(data) {
+      // let dataArr: any[] = [];
+      // for(let key in data) {
+      //   if(!data[key]) {
+      //     data.delete
+      //   }
+      // }
+      // console.log(dataArr);
+
+      let path = `/es?$skip=2&$top=2&&$filter=created_at le ${this.dateFrom} and created_at gt ${this.dateTill}`
+      for(let key in data) {
+        if(data[key]) {
+          path += ` and ${key} eq ${data[key]}`;
+        }
+      }
+
+      //and company_id eq ‘111111111111’`
+      console.log(path);
+    }
+
 }

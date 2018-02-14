@@ -20,7 +20,6 @@ const after = (one: NgbDateStruct, two: NgbDateStruct) =>
   styleUrls: ['./date-input.component.css']
 })
 export class DateInputComponent {
-    // model;
     private dateTill;
     private dateFrom;
     private hoveredDate: NgbDateStruct;
@@ -29,11 +28,10 @@ export class DateInputComponent {
     private show: boolean = false;
     private inputDate: string;
   
-    constructor(private calendar: NgbCalendar, private logsService: LogsService) {
-      // this.fromDate = calendar.getPrev(calendar.getToday(), 'd', 10);
-      // this.toDate = calendar.getToday();
-      // this.inputDate = formatDate(this.fromDate, this.toDate);
-    }
+    constructor(
+      private calendar: NgbCalendar, 
+      private logsService: LogsService
+    ) {}
   
     onDateChange(date: NgbDateStruct) {
       if (!this.fromDate && !this.toDate) {
@@ -41,10 +39,11 @@ export class DateInputComponent {
         this.dateFrom = new Date(convertDate(this.fromDate).setUTCHours(0, 0, 0)).toISOString();
       } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
         this.toDate = date;
-        this.dateTill = new Date(convertDate(this.toDate).setUTCHours(23, 59, 59)).toISOString();
+        this.dateTill = new Date(convertDate(this.toDate).setUTCHours(23, 59, 59, 999)).toISOString();
         this.inputDate = formatDate(this.fromDate, this.toDate);
         this.logsService.setDateFrom(this.dateFrom);
         this.logsService.setDateTill(this.dateTill);
+        this.onShowCalendar();
       } else {
         this.toDate = null;
         this.fromDate = date;
@@ -64,49 +63,42 @@ export class DateInputComponent {
   onSetRange(event: Event) {
     event.preventDefault;
     const val: string = event.srcElement.innerHTML;
+    this.inputDate = 'last ' + val;
 
+    let period;
     switch(val) {
       case '5 min':
-        this.dateTill = new Date().toISOString();
-        this.dateFrom = new Date(setSeconds() - (1000*60*5)).toISOString();
-        this.inputDate = 'last 5 min';
-        this.logsService.setDateFrom(this.dateFrom);
-        this.logsService.setDateTill(this.dateTill);
+        period = (1000*60*5);
         break;
       case '1 hour':
-        this.dateTill = new Date().toISOString();
-        this.dateFrom = new Date(setSeconds() - (1000*60*60)).toISOString();
-        this.inputDate = 'last hour';
-        this.logsService.setDateFrom(this.dateFrom);
-        this.logsService.setDateTill(this.dateTill);
+        period = (1000*60*60);
         break;
       case '6 hours':
-        this.dateTill = new Date().toISOString();
-        this.dateFrom = new Date(setSeconds() - (1000*60*60*6)).toISOString();
-        this.inputDate = 'last 6 hours';
-        this.logsService.setDateFrom(this.dateFrom);
-        this.logsService.setDateTill(this.dateTill);
+        period = (1000*60*60*6);
         break;
       case '1 day':
-        this.dateTill = new Date().toISOString();
-        this.dateFrom = new Date(setHours() - (1000*60*60*24)).toISOString();
-        this.inputDate = 'last day';
-        this.logsService.setDateFrom(this.dateFrom);
-        this.logsService.setDateTill(this.dateTill);
+        period = (1000*60*60*24);
         break;
       case '1 week':
-        this.dateTill = new Date().toISOString();
-        this.dateFrom = new Date(setHours() - (1000*60*60*24*7)).toISOString();
-        this.inputDate = 'last week';
-        this.logsService.setDateFrom(this.dateFrom);
-        this.logsService.setDateTill(this.dateTill);
+        period = (1000*60*60*24*7);
         break;
     }
+    
+    const setTimeRange = (val === '1 day' || val === '1 week') ? setHours : setSeconds;
+    this.dateTill = (val === '1 day' || val === '1 week') ? 
+                    new Date(endOfDay() - (1000*60*60*24)).toISOString() : new Date().toISOString();
+    this.dateFrom = new Date(setTimeRange() - period).toISOString();
+    this.logsService.setDateFrom(this.dateFrom);
+    this.logsService.setDateTill(this.dateTill);
   }
 }
 
-function  setHours() {
-  return new Date().setHours(0, 0, 0, 0);
+function setHours() {
+  return new Date().setUTCHours(0, 0, 0, 0);
+}
+
+function endOfDay() {
+  return new Date().setUTCHours(23, 59, 59, 999)
 }
 
 function setSeconds() {
@@ -114,7 +106,6 @@ function setSeconds() {
 }
 
 function formatDate(from: NgbDateStruct, till: NgbDateStruct) {
-
   if (!from || !till) {
     return;
   } else {
@@ -123,10 +114,10 @@ function formatDate(from: NgbDateStruct, till: NgbDateStruct) {
   }
 }
 
-function convertDate(obj: NgbDateStruct) {
+function convertDate(day: NgbDateStruct) {
   let dateArr: number[] = [];
-  for(let key in obj) {
-    dateArr.push(obj[key]);
+  for(let key in day) {
+    dateArr.push(day[key]);
   }
   return new Date(dateArr[0], dateArr[1]-1, dateArr[2]+1);
 }
