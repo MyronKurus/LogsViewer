@@ -21,8 +21,17 @@ export class LogsService {
     // }
 
     
-    getItems(src:string): Observable<any[]> {
-        return this.http.get(src)
+    getItems(data): Observable<any[]> {
+        let path = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=0&$top=20&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
+        for(let key in data) {
+          if(data[key]) {
+            path += ` and ${key} eq \'${data[key]}\'`;
+          }
+        }
+
+        console.log(path);
+
+        return this.http.get(path)
             .map((res:Response) => res.json())
             .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
@@ -35,14 +44,14 @@ export class LogsService {
         this.dateTill = date;
     }
 
-    generatePath(data) {
-      let path = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=2&$top=2&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
-      for(let key in data) {
-        if(data[key]) {
-          path += ` and ${key} eq \'${data[key]}\'`;
-        }
-      }
-      console.log(path);
-    }
+    // generatePath(data) {
+    //   let path = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=2&$top=2&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
+    //   for(let key in data) {
+    //     if(data[key]) {
+    //       path += ` and ${key} eq \'${data[key]}\'`;
+    //     }
+    //   }
+    //   console.log(path);
+    // }
 
 }
