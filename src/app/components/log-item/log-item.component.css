@@ -1,10 +1,29 @@
 fieldset {
-    border: 1px solid;
+    position: relative;
 }
 
 legend {
     width: initial;
     max-width: initial;
-    margin-left: 20px;
-    padding: 0 10px;
+    padding: 0;
+    font-size: initial;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+a:not([href]):not([tabindex]) {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 35px;
+}
+
+p {
+    word-wrap: break-word; 
+    overflow: hidden;
+    margin-bottom: 0;
 }

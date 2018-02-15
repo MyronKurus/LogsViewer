@@ -21,6 +21,10 @@ a.btn-success {
     min-width: 126px;
 }
 
+.logs-list {
+    margin: 20px 0;
+}
+
 @keyframes alertAnimation {
     from {
         opacity: 0;

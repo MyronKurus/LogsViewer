@@ -37,7 +37,7 @@ export class LogFormComponent {
 
 
   onGetLogs() {
-    this.logsService.getItems()
+    this.logsService.getItems('https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=0&$top=10&$filter=created_at%20gt%20%272018-02-08T13:25:32.000Z%27%20and%20created_at%20le%20%272018-02-15T13:25:32.367Z%27')
         .subscribe(
             items => {
               this.logItems = items

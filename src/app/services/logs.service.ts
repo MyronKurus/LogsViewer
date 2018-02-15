@@ -15,8 +15,15 @@ export class LogsService {
 
     constructor(private http:Http) {}
 
-    getItems(): Observable<any[]> {
-        return Observable.of(logs)
+    // getItems(): Observable<any[]> {
+    //     return Observable.of(logs)
+    //         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    // }
+
+    
+    getItems(src:string): Observable<any[]> {
+        return this.http.get(src)
+            .map((res:Response) => res.json())
             .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
 
@@ -29,7 +36,7 @@ export class LogsService {
     }
 
     generatePath(data) {
-      let path = `/es?$skip=2&$top=2&$filter=created_at le ${this.dateFrom} and created_at gt ${this.dateTill}`
+      let path = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=2&$top=2&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
       for(let key in data) {
         if(data[key]) {
           path += ` and ${key} eq \'${data[key]}\'`;
