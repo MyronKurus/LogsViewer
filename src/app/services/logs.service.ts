@@ -29,10 +29,10 @@ export class LogsService {
     }
 
     generatePath(data) {
-      let path = `/es?$skip=2&$top=2&&$filter=created_at le ${this.dateFrom} and created_at gt ${this.dateTill}`
+      let path = `/es?$skip=2&$top=2&$filter=created_at le ${this.dateFrom} and created_at gt ${this.dateTill}`
       for(let key in data) {
         if(data[key]) {
-          path += ` and ${key} eq ${data[key]}`;
+          path += ` and ${key} eq \'${data[key]}\'`;
         }
       }
       console.log(path);
