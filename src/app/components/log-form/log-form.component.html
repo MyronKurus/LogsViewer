@@ -47,5 +47,5 @@
 </div>
 <div class="logs-list" *ngIf="logItems">
   <app-log-item *ngFor="let logItem of logItems" [log]="logItem"></app-log-item>
-  <button class="btn btn-success" type="button" (click)="onGetLogs(reactiveForm.value)">Get More</button>
+  <button class="btn btn-success" type="button" (click)="onGetLogs(reactiveForm.value, 'more')">Get More</button>
 </div>
