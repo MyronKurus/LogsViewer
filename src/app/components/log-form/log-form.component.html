@@ -3,19 +3,21 @@
     <div class="row">
       <div class="col-sm-2"><label for="level-select">Level:</label></div>
       <div class="col-sm-4">
-        <select class="form-control" id="level-select" formControlName="level">
+        <select *ngIf="!inputLevel" class="form-control" id="level-select" formControlName="level">
           <option *ngFor="let item of levels | enums" [value]="item.value">{{item.key}}</option>
         </select>
+        <input *ngIf="inputLevel" type="text" id="app-code" class="form-control" formControlName="app_code">
         <div class="alert" *ngIf="!reactiveForm.controls['level'].valid && reactiveForm.controls['level'].touched">{{ titleAlert }}</div>
+        <a style="position: absolute; top: 8px; right: 35px;" (click)="onSwitchInputLevel($event)"><fa name="pencil"></fa></a>
       </div>
       <div class="col-sm-2"><label for="app-code">App Code:</label></div>
       <div class="col-sm-4">
-        <select *ngIf="!input" class="form-control" id="app-code" formControlName="appCode">
+        <select *ngIf="!inputApp" class="form-control" id="app-code" formControlName="app_code">
           <option *ngFor="let item of appCodes | enums" [value]="item.value">{{item.key}}</option>
         </select>
-        <input *ngIf="input" type="text" id="app-code" class="form-control" formControlName="appCode">
-        <div class="alert" *ngIf="!reactiveForm.controls['appCode'].valid && reactiveForm.controls['appCode'].touched">{{ titleAlert }}</div>
-        <a style="position: absolute; top: 8px; right: 35px;" (click)="onSwitchInput($event)"><fa name="pencil"></fa></a>
+        <input *ngIf="inputApp" type="text" id="app-code" class="form-control" formControlName="app_code">
+        <div class="alert" *ngIf="!reactiveForm.controls['app_code'].valid && reactiveForm.controls['app_code'].touched">{{ titleAlert }}</div>
+        <a style="position: absolute; top: 8px; right: 35px;" (click)="onSwitchInputApp($event)"><fa name="pencil"></fa></a>
       </div>
     </div>
     <div class="row">

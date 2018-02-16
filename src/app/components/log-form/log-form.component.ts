@@ -16,14 +16,15 @@ export class LogFormComponent {
   private levels = Levels;
   private appCodes = AppCodes;
   private titleAlert: string = 'This field is required';
-  private input: boolean = false;
+  private inputLevel: boolean = false;
+  private inputApp: boolean = false;
   private logItems: any[];
   private copyList: any[];
 
   constructor(private formBuilder: FormBuilder, private logsService: LogsService) {
     this.reactiveForm = formBuilder.group({
       'level': [null],
-      'appCode': [null],
+      'app_code': [null],
       'event': [null],
       'company_id': [null],
       'site_id': [null],
@@ -31,18 +32,25 @@ export class LogFormComponent {
     });
   }
 
-  onSwitchInput(event: Event) {
+  onSwitchInputApp(event: Event) {
     event.preventDefault;
-    this.input = !this.input;
+    this.inputApp = !this.inputApp;
+  }
+
+  onSwitchInputLevel(event: Event) {
+    event.preventDefault;
+    this.inputLevel = !this.inputLevel;
   }
 
   onGetLogs(data, more) {
     this.logsService.generateLink(data, more)
       .subscribe(items => {
-        this.logItems = (!this.logItems) ? items : this.logItems.concat(items);
+        this.logItems = (!more) ? items : this.logItems.concat(items);
         this.copyList = this.logItems;
       }, err => console.log(err));
   }
+
+
 
   onSortByLevel(event: Event) {
    
