@@ -13,6 +13,7 @@ export class LogFormComponent {
 
   private reactiveForm: FormGroup;
   private levels = Levels;
+  private appcode
   private titleAlert: string = 'This field is required';
   private input: boolean = false;
   private logItems: any[];
@@ -35,9 +36,20 @@ export class LogFormComponent {
 
   onGetLogs(data, more) {
     this.logsService.generateLink(data, more)
-      .subscribe(items => {
-        this.logItems = (!this.logItems) ? items : this.logItems.concat(items);
-      }, err => console.log(err));
+      .subscribe(items => this.logItems = (!this.logItems) ? items : this.logItems.concat(items), 
+                err => console.log(err));
+  }
+
+  onSortByLevel(event: Event) {
+    event.preventDefault;
+    const val: string = event.srcElement.innerHTML;
+    const tempList = this.logItems;
+
+    if(val !== 'Remove filter') {
+      this.logItems = this.logItems.map(item => item.level === val);
+    } else {
+      this.logItems = tempList;
+    }
   }
 
 }
