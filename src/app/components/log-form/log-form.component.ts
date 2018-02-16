@@ -36,16 +36,17 @@ export class LogFormComponent {
   }
 
 
-  onGetLogs(data) {
-    this.logsService.generateLink(data)
+  onGetLogs(data, more) {
+
+    this.logsService.generateLink(data, more)
       .subscribe(items => this.logItems = items,
                 err => console.log(err));
   }
 
-  onGetMore() {
-    this.logsService.setSkip();
-    this.logsService.getLogs()
-      .subscribe(items => this.logItems = this.logItems.concat(items),
-                err => console.log(err));
-  }
+  // onGetMore() {
+  //   this.logsService.setSkip();
+  //   this.logsService.getLogs()
+  //     .subscribe(items => this.logItems = this.logItems.concat(items),
+  //               err => console.log(err));
+  // }
 }

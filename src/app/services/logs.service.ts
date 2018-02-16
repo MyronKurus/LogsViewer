@@ -18,24 +18,22 @@ export class LogsService {
 
   constructor(private http:Http) {}
 
-  generateLink(data): Observable<any[]> {
+  generateLink(data, more): Observable<any[]> {
+
+    this.skip = (more === 'more') ? this.skip + 20 : 0;
     this.path = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=${this.skip}&$top=20&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
     for(let key in data) {
       if(data[key]) {
         this.path += ` and ${key} eq \'${data[key]}\'`;
       }
     }
-    return this.getLogs();
+    return this.getLogs(this.path);
   }
 
-  getLogs() {
-    return this.http.get(this.path)
-    .map((res:Response) => res.json())
-    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-  }
-
-  setSkip() {
-    this.skip += 10;
+  getLogs(src): Observable<any[]> {
+    return this.http.get(src)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   setDateFrom(date) {
