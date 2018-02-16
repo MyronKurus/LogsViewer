@@ -47,4 +47,5 @@
 </div>
 <div class="logs-list" *ngIf="logItems">
   <app-log-item *ngFor="let logItem of logItems" [log]="logItem"></app-log-item>
+  <button type="button" (click)="onGetMore()">Get More</button>
 </div>

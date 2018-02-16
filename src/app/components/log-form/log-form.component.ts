@@ -49,4 +49,10 @@ export class LogFormComponent {
         );
   }
 
+  onGetMore() {
+    this.logsService.setSkip();
+    this.logsService.getLogs()
+      .subscribe(items => this.logItems = this.logItems.concat(items),
+        err => console.log(err));
+  }
 }

@@ -13,11 +13,13 @@ export class LogsService {
   dateFrom;
   dateTill;
   private path: string;
+  private skip: number = 0;
+
 
   constructor(private http:Http) {}
 
   generateLink(data): Observable<any[]> {
-    this.path = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=0&$top=20&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
+    this.path = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=${this.skip}&$top=20&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
     for(let key in data) {
       if(data[key]) {
         this.path += ` and ${key} eq \'${data[key]}\'`;
@@ -30,6 +32,10 @@ export class LogsService {
     return this.http.get(this.path)
     .map((res:Response) => res.json())
     .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  setSkip() {
+    this.skip += 10;
   }
 
   setDateFrom(date) {
