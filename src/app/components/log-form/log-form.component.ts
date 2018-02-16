@@ -38,21 +38,14 @@ export class LogFormComponent {
 
   onGetLogs(data) {
     this.logsService.generateLink(data)
-        .subscribe(
-            items => {
-              this.logItems = items
-              console.log(items);
-            },
-            err => {
-                console.log(err);
-            }
-        );
+      .subscribe(items => this.logItems = items,
+                err => console.log(err));
   }
 
   onGetMore() {
     this.logsService.setSkip();
     this.logsService.getLogs()
       .subscribe(items => this.logItems = this.logItems.concat(items),
-        err => console.log(err));
+                err => console.log(err));
   }
 }
