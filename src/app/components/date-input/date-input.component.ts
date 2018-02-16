@@ -20,13 +20,13 @@ const after = (one: NgbDateStruct, two: NgbDateStruct) =>
   styleUrls: ['./date-input.component.css']
 })
 export class DateInputComponent {
-    private dateTill;
-    private dateFrom;
+    private dateTill = new Date().toISOString();
+    private dateFrom = new Date(setSeconds() - (1000*60*60*24)).toISOString();
     private hoveredDate: NgbDateStruct;
     private fromDate: NgbDateStruct;
     private toDate: NgbDateStruct;
     private show: boolean = false;
-    private inputDate: string;
+    private inputDate: string = '1 day';
   
     constructor(
       private calendar: NgbCalendar, 

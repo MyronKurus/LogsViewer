@@ -11,7 +11,7 @@
       <div class="col-sm-2"><label for="app-code">App Code:</label></div>
       <div class="col-sm-4">
         <select *ngIf="!input" class="form-control" id="app-code" formControlName="appCode">
-          <option *ngFor="let item of levels | enums" [value]="item.value">{{item.key}}</option>
+          <option *ngFor="let item of appCodes | enums" [value]="item.value">{{item.key}}</option>
         </select>
         <input *ngIf="input" type="text" id="app-code" class="form-control" formControlName="appCode">
         <div class="alert" *ngIf="!reactiveForm.controls['appCode'].valid && reactiveForm.controls['appCode'].touched">{{ titleAlert }}</div>

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Levels } from '../../enums/request-levels.enum';
 import { LogsService } from '../../services/logs.service';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { AppCodes } from '../../enums/app-codes.enum';
 
 @Component({
   selector: 'app-log-form',
@@ -13,7 +14,7 @@ export class LogFormComponent {
 
   private reactiveForm: FormGroup;
   private levels = Levels;
-  private appcode
+  private appCodes = AppCodes;
   private titleAlert: string = 'This field is required';
   private input: boolean = false;
   private logItems: any[];
