@@ -16,8 +16,6 @@ export class LogFormComponent {
   private titleAlert: string = 'This field is required';
   private input: boolean = false;
   private logItems: any[];
-  private dateNow = new Date();
-  private dateFrom: any;
 
   constructor(private formBuilder: FormBuilder, private logsService: LogsService) {
     this.reactiveForm = formBuilder.group({
@@ -35,18 +33,11 @@ export class LogFormComponent {
     this.input = !this.input;
   }
 
-
   onGetLogs(data, more) {
-
     this.logsService.generateLink(data, more)
-      .subscribe(items => this.logItems = this.logItems.concat(items),
-                err => console.log(err));
+      .subscribe(items => {
+        this.logItems = (!this.logItems) ? items : this.logItems.concat(items);
+      }, err => console.log(err));
   }
 
-  // onGetMore() {
-  //   this.logsService.setSkip();
-  //   this.logsService.getLogs()
-  //     .subscribe(items => this.logItems = this.logItems.concat(items),
-  //               err => console.log(err));
-  // }
 }
