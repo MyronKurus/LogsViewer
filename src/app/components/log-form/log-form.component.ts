@@ -39,7 +39,7 @@ export class LogFormComponent {
   onGetLogs(data, more) {
 
     this.logsService.generateLink(data, more)
-      .subscribe(items => this.logItems = items,
+      .subscribe(items => this.logItems = this.logItems.concat(items),
                 err => console.log(err));
   }
 
