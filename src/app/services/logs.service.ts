@@ -10,8 +10,8 @@ import 'rxjs/add/observable/of';
 @Injectable()
 export class LogsService {
 
-  dateFrom;
-  dateTill;
+  dateFrom = new Date(setSeconds() - (1000*60*60*24)).toISOString();
+  dateTill  = new Date().toISOString();
   private path: string;
   private skip: number = 0;
 
@@ -43,5 +43,9 @@ export class LogsService {
   setDateTill(date) {
     this.dateTill = date;
   }
+  
+}
 
+function setSeconds() {
+  return new Date().setMilliseconds(0);
 }

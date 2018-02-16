@@ -20,8 +20,8 @@ const after = (one: NgbDateStruct, two: NgbDateStruct) =>
   styleUrls: ['./date-input.component.css']
 })
 export class DateInputComponent {
-    private dateTill = new Date().toISOString();
-    private dateFrom = new Date(setSeconds() - (1000*60*60*24)).toISOString();
+    private dateTill;
+    private dateFrom;
     private hoveredDate: NgbDateStruct;
     private fromDate: NgbDateStruct;
     private toDate: NgbDateStruct;

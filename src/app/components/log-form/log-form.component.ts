@@ -18,6 +18,7 @@ export class LogFormComponent {
   private titleAlert: string = 'This field is required';
   private input: boolean = false;
   private logItems: any[];
+  private copyList: any[];
 
   constructor(private formBuilder: FormBuilder, private logsService: LogsService) {
     this.reactiveForm = formBuilder.group({
@@ -37,19 +38,24 @@ export class LogFormComponent {
 
   onGetLogs(data, more) {
     this.logsService.generateLink(data, more)
-      .subscribe(items => this.logItems = (!this.logItems) ? items : this.logItems.concat(items), 
-                err => console.log(err));
+      .subscribe(items => {
+        this.logItems = (!this.logItems) ? items : this.logItems.concat(items);
+        this.copyList = this.logItems;
+      }, err => console.log(err));
   }
 
   onSortByLevel(event: Event) {
+   
     event.preventDefault;
     const val: string = event.srcElement.innerHTML;
-    const tempList = this.logItems;
+    let filtered: any[] = [];
+    this.logItems = this.copyList;
 
     if(val !== 'Remove filter') {
-      this.logItems = this.logItems.map(item => item.level === val);
-    } else {
-      this.logItems = tempList;
+      this.logItems.forEach(item => {
+        if(item.level === val) {filtered.push(item)}
+      });
+      this.logItems = filtered;
     }
   }
 
