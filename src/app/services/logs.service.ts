@@ -10,48 +10,34 @@ import 'rxjs/add/observable/of';
 @Injectable()
 export class LogsService {
 
-    dateFrom;
-    dateTill;
+  dateFrom;
+  dateTill;
+  private path: string;
 
-    constructor(private http:Http) {}
+  constructor(private http:Http) {}
 
-    // getItems(): Observable<any[]> {
-    //     return Observable.of(logs)
-    //         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-    // }
-
-    
-    getItems(data): Observable<any[]> {
-        let path = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=0&$top=20&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
-        for(let key in data) {
-          if(data[key]) {
-            path += ` and ${key} eq \'${data[key]}\'`;
-          }
-        }
-
-        console.log(path);
-
-        return this.http.get(path)
-            .map((res:Response) => res.json())
-            .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  generateLink(data): Observable<any[]> {
+    this.path = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=0&$top=20&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
+    for(let key in data) {
+      if(data[key]) {
+        this.path += ` and ${key} eq \'${data[key]}\'`;
+      }
     }
+    return this.getLogs();
+  }
 
-    setDateFrom(date) {
-        this.dateFrom = date;
-    }
+  getLogs() {
+    return this.http.get(this.path)
+    .map((res:Response) => res.json())
+    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
 
-    setDateTill(date) {
-        this.dateTill = date;
-    }
+  setDateFrom(date) {
+    this.dateFrom = date;
+  }
 
-    // generatePath(data) {
-    //   let path = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=2&$top=2&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
-    //   for(let key in data) {
-    //     if(data[key]) {
-    //       path += ` and ${key} eq \'${data[key]}\'`;
-    //     }
-    //   }
-    //   console.log(path);
-    // }
+  setDateTill(date) {
+    this.dateTill = date;
+  }
 
 }

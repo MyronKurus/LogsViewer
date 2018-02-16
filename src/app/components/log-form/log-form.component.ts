@@ -37,7 +37,7 @@ export class LogFormComponent {
 
 
   onGetLogs(data) {
-    this.logsService.getItems(data)
+    this.logsService.generateLink(data)
         .subscribe(
             items => {
               this.logItems = items
@@ -48,9 +48,5 @@ export class LogFormComponent {
             }
         );
   }
-
-  // onGenerateLink(data) {
-  //   this.logsService.generatePath(data);
-  // }
 
 }
