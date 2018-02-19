@@ -27,6 +27,7 @@ export class DateInputComponent {
     private toDate: NgbDateStruct;
     private show: boolean = false;
     private inputDate: string = '1 day';
+    private doc = document;
   
     constructor(
       private calendar: NgbCalendar, 

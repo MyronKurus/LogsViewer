@@ -1,7 +1,7 @@
-import {Injectable } from '@angular/core';
-import {Http,Response} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import {logs} from '../data/logs';
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { logs } from '../data/logs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
@@ -10,8 +10,8 @@ import 'rxjs/add/observable/of';
 @Injectable()
 export class LogsService {
 
-  dateFrom = new Date(setSeconds() - (1000*60*60*24)).toISOString();
-  dateTill  = new Date().toISOString();
+  private dateFrom: string = new Date(setSeconds() - (1000*60*60*24)).toISOString();
+  private dateTill: string = new Date().toISOString();
   private path: string;
   private skip: number = 0;
 
@@ -32,8 +32,8 @@ export class LogsService {
 
   getLogs(src): Observable<any[]> {
     return this.http.get(src)
-      .map((res:Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   setDateFrom(date) {
@@ -43,7 +43,6 @@ export class LogsService {
   setDateTill(date) {
     this.dateTill = date;
   }
-  
 }
 
 function setSeconds() {

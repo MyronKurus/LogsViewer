@@ -1,7 +1,7 @@
 <fieldset>
     <legend style="width:100%"> {{printDate}} | {{logItem.level}} | {{logItem.event_name}}</legend>
     <p [ngStyle]="{height: (expand) ? '75px' : '100%'}">{{logItem | json}}</p>
-    <a (click)="onExpandClick()" *ngIf="!expand"><fa name="angle-up"></fa></a>
-    <a (click)="onExpandClick()" *ngIf="expand">...</a>
+    <a style="bottom: 5px;" (click)="onExpandClick()" *ngIf="!expand"><fa name="angle-up"></fa></a>
+    <a style="bottom: 15px;" (click)="onExpandClick()" *ngIf="expand">...</a>
     <hr/>
 </fieldset>

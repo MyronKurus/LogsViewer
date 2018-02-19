@@ -16,7 +16,6 @@ a:not([href]):not([tabindex]) {
     text-decoration: none;
     cursor: pointer;
     position: absolute;
-    bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 35px;

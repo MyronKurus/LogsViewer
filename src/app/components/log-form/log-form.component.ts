@@ -20,6 +20,7 @@ export class LogFormComponent {
   private inputApp: boolean = false;
   private logItems: any[];
   private copyList: any[];
+  private status: string = 'ALL';
 
   constructor(private formBuilder: FormBuilder, private logsService: LogsService) {
     this.reactiveForm = formBuilder.group({
@@ -50,21 +51,34 @@ export class LogFormComponent {
       }, err => console.log(err));
   }
 
-
-
   onSortByLevel(event: Event) {
-   
     event.preventDefault;
     const val: string = event.srcElement.innerHTML;
     let filtered: any[] = [];
     this.logItems = this.copyList;
-
-    if(val !== 'Remove filter') {
+    this.status = 'ALL';
+    
+    if(val === 'WARN') {
+      this.status = val;
+      this.logItems.forEach(item => {
+        if(item.level === val || item.level ==='WARNING') {filtered.push(item)}
+      });
+      this.logItems = filtered;
+    } else if(val !== 'ALL') {
+      this.status = val;
       this.logItems.forEach(item => {
         if(item.level === val) {filtered.push(item)}
       });
       this.logItems = filtered;
     }
+
+    // if(val !== 'ALL') {
+    //   this.status = val;
+    //   this.logItems.forEach(item => {
+    //     if(item.level === val) {filtered.push(item)}
+    //   });
+    //   this.logItems = filtered;
+    // }
   }
 
 }

@@ -48,16 +48,15 @@
   </form>
 </div>
 <div class="sort-block" *ngIf="logItems">
-  <ul class="nav">
-    <li class="nav-link"><b>Filter by level:</b></li>
-    <li class="nav-item"><a class="btn btn-primary" (click)="onSortByLevel($event)">DEBUG</a></li>
-    <li class="nav-item"><a class="btn btn-success" (click)="onSortByLevel($event)">INFO</a></li>
-    <li class="nav-item"><a class="btn btn-warning" (click)="onSortByLevel($event)">WARN</a></li>
-    <li class="nav-item"><a class="btn btn-danger" (click)="onSortByLevel($event)">ERROR</a></li>
-    <li class="nav-item"><a class="btn btn-secondary" (click)="onSortByLevel($event)">Remove filter</a></li>
+  <ul class="nav nav-tabs">
+    <li class="nav-item"><a [ngClass]="{'active': status==='ALL'}" class="nav-link" (click)="onSortByLevel($event)">ALL</a></li>
+    <li class="nav-item"><a [ngClass]="{'active': status==='ERROR'}" class="nav-link" (click)="onSortByLevel($event)">ERROR</a></li>
+    <li class="nav-item"><a [ngClass]="{'active': status==='INFO'}" class="nav-link" (click)="onSortByLevel($event)">INFO</a></li>
+    <li class="nav-item"><a [ngClass]="{'active': status==='DEBUG'}" class="nav-link" (click)="onSortByLevel($event)">DEBUG</a></li>
+    <li class="nav-item"><a [ngClass]="{'active': status==='WARN'}" class="nav-link" (click)="onSortByLevel($event)">WARN</a></li>
   </ul>
 </div>
 <div class="logs-list" *ngIf="logItems">
   <app-log-item *ngFor="let logItem of logItems" [log]="logItem"></app-log-item>
-  <button class="btn btn-success" type="button" (click)="onGetLogs(reactiveForm.value, 'more')">Get More</button>
+  <button class="btn btn-link" type="button" (click)="onGetLogs(reactiveForm.value, 'more')">Load More</button>
 </div>

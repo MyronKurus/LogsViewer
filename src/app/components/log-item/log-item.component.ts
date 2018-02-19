@@ -10,7 +10,7 @@ export class LogItemComponent implements OnInit {
 
   @Input('log') logItem;
   public expand: boolean = true;
-  printDate: string;
+  public printDate: string;
 
 
   constructor() { }

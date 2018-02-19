@@ -31,7 +31,8 @@ a {
 }
 
 .sort-block li a {
-    color: #fff;
+    color: #007bff;
+    cursor: pointer;
 }
 
 .logs-list {
@@ -40,6 +41,13 @@ a {
 
 a.btn-success {
     min-width: initial;
+}
+.btn.btn-link {
+    padding: 0;
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    margin-bottom: 20px;
 }
 
 @keyframes alertAnimation {
