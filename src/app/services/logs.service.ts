@@ -30,12 +30,10 @@ export class LogsService {
         src += ` and ${key} eq \'${data[key]}\'`;
       }
     }
-    console.log(src);
-    debugger;
     return this.getLogs(src);
   }
 
-  exportLogs(data) {
+  exportLogs(data): Observable<any[]> {
     this.skip = 0;
     let src = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=${this.skip}&$top=${this.total}&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
     for(let key in data) {

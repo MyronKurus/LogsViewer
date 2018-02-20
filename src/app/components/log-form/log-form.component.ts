@@ -52,8 +52,8 @@ export class LogFormComponent {
   }
 
   onExportLogs(data) {
-    // this.logsService.generateLink
-    this.logsService.exportLogs(data);
+    this.logsService.exportLogs(data).subscribe(items => {}, 
+      err => console.log(err));;
   }
 
   onSortByLevel(event: Event) {
