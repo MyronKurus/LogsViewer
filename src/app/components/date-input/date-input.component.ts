@@ -99,8 +99,8 @@ function formatDate(from: NgbDateStruct, till: NgbDateStruct) {
   if (!from || !till) {
     return;
   } else {
-    return 'From: ' + from.year + '-' + from.month + '-' + from.day +
-          ' | To: ' + till.year + '-' + till.month + '-' + till.day
+    return 'From: ' + from.year + '-' + from.month + '-' + from.day + ' 00:00:00' +
+          ' | To: ' + till.year + '-' + till.month + '-' + till.day + ' 23:59:59';
   }
 }
 

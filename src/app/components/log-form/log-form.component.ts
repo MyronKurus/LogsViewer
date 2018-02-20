@@ -71,14 +71,6 @@ export class LogFormComponent {
       });
       this.logItems = filtered;
     }
-
-    // if(val !== 'ALL') {
-    //   this.status = val;
-    //   this.logItems.forEach(item => {
-    //     if(item.level === val) {filtered.push(item)}
-    //   });
-    //   this.logItems = filtered;
-    // }
   }
 
 }
