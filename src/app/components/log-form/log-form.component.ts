@@ -51,6 +51,11 @@ export class LogFormComponent {
       }, err => console.log(err));
   }
 
+  onExportLogs(data) {
+    // this.logsService.generateLink
+    this.logsService.exportLogs(data);
+  }
+
   onSortByLevel(event: Event) {
     event.preventDefault;
     const val: string = event.srcElement.innerHTML;

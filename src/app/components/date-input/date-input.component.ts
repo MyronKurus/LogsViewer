@@ -37,7 +37,12 @@ export class DateInputComponent {
     onDateChange(date: NgbDateStruct) {
       if (!this.fromDate && !this.toDate) {
         this.fromDate = date;
+        this.toDate = date;
         this.dateFrom = new Date(convertDate(this.fromDate).setUTCHours(0, 0, 0)).toISOString();
+        this.dateTill = new Date(convertDate(this.toDate).setUTCHours(23, 59, 59, 999)).toISOString();
+        this.inputDate = formatDate(this.fromDate, this.toDate);
+        this.logsService.setDateFrom(this.dateFrom);
+        this.logsService.setDateTill(this.dateTill);
       } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
         this.toDate = date;
         this.dateTill = new Date(convertDate(this.toDate).setUTCHours(23, 59, 59, 999)).toISOString();

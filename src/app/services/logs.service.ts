@@ -14,20 +14,37 @@ export class LogsService {
   private dateTill: string = new Date().toISOString();
   private path: string;
   private skip: number = 0;
-
+  private top: number = 20;
+  private total: number = 20;
 
   constructor(private http:Http) {}
 
   generateLink(data, more): Observable<any[]> {
-
-    this.skip = (more === 'more') ? this.skip + 20 : 0;
-    this.path = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=${this.skip}&$top=20&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
+    if (more === 'more') {
+      this.skip += 20;
+      this.total += 20;
+    }
+    let src = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=${this.skip}&$top=${this.top}&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
     for(let key in data) {
       if(data[key]) {
-        this.path += ` and ${key} eq \'${data[key]}\'`;
+        src += ` and ${key} eq \'${data[key]}\'`;
       }
     }
-    return this.getLogs(this.path);
+    console.log(src);
+    debugger;
+    return this.getLogs(src);
+  }
+
+  exportLogs(data) {
+    this.skip = 0;
+    let src = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=${this.skip}&$top=${this.total}&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
+    for(let key in data) {
+      if(data[key]) {
+        src += ` and ${key} eq \'${data[key]}\'`;
+      }
+    }
+    src += `&export=true`;
+    return this.getLogs(src);
   }
 
   getLogs(src): Observable<any[]> {

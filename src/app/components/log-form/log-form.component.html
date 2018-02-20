@@ -45,6 +45,7 @@
       </div>
     </div>
     <button class="btn btn-primary" type="submit" [disabled]="!reactiveForm.valid">Get Logs</button>
+    <button type="button" class="btn btn-success" *ngIf="logItems" (click)="onExportLogs(reactiveForm.value)">Export to S3</button>
   </form>
 </div>
 <div class="sort-block" *ngIf="logItems">
@@ -60,3 +61,4 @@
   <app-log-item *ngFor="let logItem of logItems" [log]="logItem"></app-log-item>
   <button class="btn btn-link" type="button" (click)="onGetLogs(reactiveForm.value, 'more')">Load More</button>
 </div>
+
