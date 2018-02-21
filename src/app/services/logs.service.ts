@@ -10,9 +10,9 @@ import 'rxjs/add/observable/of';
 @Injectable()
 export class LogsService {
 
-  private dateFrom: string = new Date(setSeconds() - (1000*60*60*24)).toISOString();
-  private dateTill: string = new Date().toISOString();
-  private path: string;
+  private dateFrom: string;
+  private dateTill: string;
+  // private path: string;
   private skip: number = 0;
   private top: number = 20;
   private total: number = 20;
@@ -30,6 +30,7 @@ export class LogsService {
         src += ` and ${key} eq \'${data[key]}\'`;
       }
     }
+    console.log(src);
     return this.getLogs(src);
   }
 
@@ -42,6 +43,7 @@ export class LogsService {
       }
     }
     src += `&export=true`;
+    console.log(src);
     return this.getLogs(src);
   }
 
@@ -51,12 +53,9 @@ export class LogsService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  setDateFrom(date) {
-    this.dateFrom = date;
-  }
-
-  setDateTill(date) {
-    this.dateTill = date;
+  setPeriod(dateStart, dateEnd) {
+    this.dateFrom = dateStart;
+    this.dateTill = dateEnd;
   }
 }
 

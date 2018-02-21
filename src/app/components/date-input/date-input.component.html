@@ -7,34 +7,17 @@
     <li class="nav-item"><a class="nav-link" (click)="onSetRange($event)">1 day</a></li>
     <li class="nav-item"><a class="nav-link" (click)="onSetRange($event)">1 week</a></li>
     <li class="nav-item" style="margin-left: 40px; width: 450px;">
-        <div class="form-group">
-            <div class="input-group">
-              <input 
-                  class="form-control ng-pristine ng-valid ng-touched" 
-                  name="dp" 
-                  placeholder="From: yyyy-mm-dd | To: yyyy-mm-dd" 
-                  [(ngModel)]="inputDate"
-                  readonly>
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" (click)="onShowCalendar()">
-                  <fa name="calendar"></fa>
-                </button>
-              </div>
-            </div>
-            <ngb-datepicker [ngStyle]="{display: (show) ? 'inline-block' : 'none'}" #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t">
-              </ngb-datepicker>
-              
-              <ng-template #t let-date="date" let-focused="focused">
-                <span class="custom-day"
-                      [class.focused]="focused"
-                      [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
-                      [class.faded]="isHovered(date) || isInside(date)"
-                      (mouseenter)="hoveredDate = date"
-                      (mouseleave)="hoveredDate = null">
-                  {{ date.day }}
-                </span>
-              </ng-template>
+        <div class="time-form">
+              <form #myForm="ngForm" novalidate>
+                <!-- <input type="text" class="alt-input" [(ngModel)]="templ"> -->
+                <my-date-range-picker 
+                  name="mydaterange" [options]="myDateRangePickerOptions"
+                  (dateRangeChanged)="onDateRangeChanged($event)"
+                  [(ngModel)]="model" required></my-date-range-picker>
+              </form>
+              <input type="text" class="alt-input" [(ngModel)]="displayTime">
           </div>
+          
     </li>
   </ul>
 </nav>

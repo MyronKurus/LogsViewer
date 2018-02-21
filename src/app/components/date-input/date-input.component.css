@@ -1,25 +1,28 @@
 .custom-day {
-    text-align: center;
-    padding: 0.185rem 0.25rem;
-    display: inline-block;
-    height: 2rem;
-    width: 2rem;
-  }
-  .custom-day.focused {
-    background-color: #e6e6e6;
-  }
-  .custom-day.range, .custom-day:hover {
-    background-color: rgb(2, 117, 216);
-    color: white;
-  }
-  .custom-day.faded {
-    background-color: rgba(2, 117, 216, 0.5);
-  }
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
 
-  a:not([href]):not([tabindex]) {
-    color: #007bff;
-    text-decoration: none;
-    cursor: pointer;
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+
+.custom-day.range, .custom-day:hover {
+  background-color: rgb(2, 117, 216);
+  color: white;
+}
+
+.custom-day.faded {
+  background-color: rgba(2, 117, 216, 0.5);
+}
+
+a:not([href]):not([tabindex]) {
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 ngb-datepicker.ng-untouched.ng-pristine.ng-valid,
@@ -31,4 +34,19 @@ ngb-datepicker.ng-valid.ng-touched.ng-dirty {
 
 .form-control[readonly] {
   background: #fff;
+}
+
+.alt-input {
+  position: absolute;
+  width: 375px;
+  top: 2px;
+  left: 1px;
+  height: 32px;
+  border: 0;
+  padding: 0 10px;
+}
+
+.time-form {
+  position: relative;
+  margin-bottom: 10px;
 }

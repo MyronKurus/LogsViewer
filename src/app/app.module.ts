@@ -13,6 +13,7 @@ import { EnumKeysPipe } from './pipes/keys.pipe';
 import { LogsService } from './services/logs.service';
 import { HttpModule } from '@angular/http';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { MyDateRangePickerModule } from 'mydaterangepicker';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
   ],
   imports: [
     BrowserModule,
+    MyDateRangePickerModule,
     FormsModule, 
     ReactiveFormsModule,
     AngularFontAwesomeModule,

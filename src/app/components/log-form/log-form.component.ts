@@ -21,6 +21,7 @@ export class LogFormComponent {
   private logItems: any[];
   private copyList: any[];
   private status: string = 'ALL';
+  
 
   constructor(private formBuilder: FormBuilder, private logsService: LogsService) {
     this.reactiveForm = formBuilder.group({
