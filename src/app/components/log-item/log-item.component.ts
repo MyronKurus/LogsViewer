@@ -16,7 +16,7 @@ export class LogItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.printDate = moment(this.logItem.created_at).format('HH:mm:ss DD-MMM-YYYY');
+    this.printDate = moment.utc(this.logItem.created_at).local().format('HH:mm:ss DD-MMM-YYYY');
   }
 
   onExpandClick() {

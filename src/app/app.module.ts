@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DateInputComponent } from './components/date-input/date-input.component';
 import { LogFormComponent } from './components/log-form/log-form.component';
@@ -30,7 +29,6 @@ import { MyDateRangePickerModule } from 'mydaterangepicker';
     FormsModule, 
     ReactiveFormsModule,
     AngularFontAwesomeModule,
-    NgbModule.forRoot(),
     HttpModule
   ],
   providers: [ LogsService ],

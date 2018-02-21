@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date';
 import { LogsService } from '../../services/logs.service';
-import {IMyDrpOptions, IMyDateRangeModel} from 'mydaterangepicker';
+import { IMyDrpOptions, IMyDateRangeModel } from 'mydaterangepicker';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 
@@ -20,11 +18,6 @@ export class DateInputComponent {
     width: '402px'
   };
 
-  // For example initialize to specific date (09.10.2018 - 19.10.2018). It is also possible
-  // to set initial date range value using the selDateRange attribute.
-  // private model: any = {beginDate: {year: 2018, month: 10, day: 9},
-  //                          endDate: {year: 2018, month: 10, day: 19}};
-  
   constructor(private logsService: LogsService) { }
 
   ngOnInit() {
@@ -34,7 +27,6 @@ export class DateInputComponent {
     this.displayTime = displayTime(this.startDate, this.endDate);
     this.logsService.setPeriod(this.startDate, this.endDate);
   }
-
 
   onDateRangeChanged(event: IMyDateRangeModel) {
     if (event.beginDate.year === 0) {

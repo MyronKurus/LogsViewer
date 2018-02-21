@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { logs } from '../data/logs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
@@ -12,7 +11,6 @@ export class LogsService {
 
   private dateFrom: string;
   private dateTill: string;
-  // private path: string;
   private skip: number = 0;
   private top: number = 20;
   private total: number = 20;
@@ -55,8 +53,4 @@ export class LogsService {
     this.dateFrom = dateStart;
     this.dateTill = dateEnd;
   }
-}
-
-function setSeconds() {
-  return new Date().setMilliseconds(0);
 }
