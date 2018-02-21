@@ -21,7 +21,12 @@ export class LogFormComponent {
   private logItems: any[];
   private copyList: any[];
   private status: string = 'ALL';
-  
+  private levelsList: Object = {
+    'DEBUG': true,
+    'ERROR': true,
+    'INFO': true,
+    'WARN': true
+  }
 
   constructor(private formBuilder: FormBuilder, private logsService: LogsService) {
     this.reactiveForm = formBuilder.group({
@@ -48,6 +53,13 @@ export class LogFormComponent {
     this.logsService.generateLink(data, more)
       .subscribe(items => {
         this.logItems = (!more) ? items : this.logItems.concat(items);
+        this.logItems.forEach(item => {
+          for(let key in this.levelsList){
+            if(item.level == key) {
+              this.levelsList[key] = false;
+            }
+          }
+        });
         this.copyList = this.logItems;
       }, err => console.log(err));
   }
@@ -58,7 +70,10 @@ export class LogFormComponent {
   }
 
   onSortByLevel(event: Event) {
-    event.preventDefault;
+
+    if (event.srcElement.classList.contains('disabled')) {
+      return;
+    }
     const val: string = event.srcElement.innerHTML;
     let filtered: any[] = [];
     this.logItems = this.copyList;
@@ -68,12 +83,14 @@ export class LogFormComponent {
       this.status = val;
       this.logItems.forEach(item => {
         if(item.level === val || item.level ==='WARNING') {filtered.push(item)}
+        this.levelsList['WARN'] = false;
       });
       this.logItems = filtered;
     } else if(val !== 'ALL') {
       this.status = val;
       this.logItems.forEach(item => {
         if(item.level === val) {filtered.push(item)}
+        this.levelsList[val] = false;
       });
       this.logItems = filtered;
     }
