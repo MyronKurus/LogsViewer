@@ -30,7 +30,6 @@ export class LogsService {
         src += ` and ${key} eq \'${data[key]}\'`;
       }
     }
-    console.log(src);
     return this.getLogs(src);
   }
 
@@ -43,7 +42,6 @@ export class LogsService {
       }
     }
     src += `&export=true`;
-    console.log(src);
     return this.getLogs(src);
   }
 
