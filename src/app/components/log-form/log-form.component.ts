@@ -4,6 +4,7 @@ import { Levels } from '../../enums/request-levels.enum';
 import { LogsService } from '../../services/logs.service';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { AppCodes } from '../../enums/app-codes.enum';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-log-form',
@@ -28,7 +29,11 @@ export class LogFormComponent {
     'WARN': true
   }
 
-  constructor(private formBuilder: FormBuilder, private logsService: LogsService) {
+  constructor(
+    private formBuilder: FormBuilder, 
+    private logsService: LogsService, 
+    private modalService: NgbModal
+  ) {
     this.reactiveForm = formBuilder.group({
       'level': [null],
       'app_code': [null],
@@ -46,12 +51,6 @@ export class LogFormComponent {
     this.reactiveForm.controls['app_code'];
   }
 
-  onSwitchInputLevel(event: Event) {
-    event.preventDefault;
-    this.inputLevel = !this.inputLevel;
-    this.reactiveForm['app_code'] = [null];
-  }
-
   onGetLogs(data, more) {
     this.logsService.generateLink(data, more)
       .subscribe(items => {
@@ -65,7 +64,7 @@ export class LogFormComponent {
             });
           } else {
             items.forEach(item => {
-              if(item.level === this.status) {this.logItems.push(item)}
+              if(item.level === this.status) {this.logItems.push(item);}
             });
           }
         } else {
@@ -74,9 +73,7 @@ export class LogFormComponent {
         }
         this.copyList.forEach(item => {
           for(let key in this.levelsList){
-            if(item.level == key) {
-              this.levelsList[key] = false;
-            }
+            if(item.level == key) {this.levelsList[key] = false;}
           }
         });
       }, err => alert(err));
@@ -89,9 +86,7 @@ export class LogFormComponent {
 
   onSortByLevel(event: Event) {
 
-    if (event.srcElement.classList.contains('disabled')) {
-      return;
-    }
+    if (event.srcElement.classList.contains('disabled')) {return;}
     const val: string = event.srcElement.innerHTML;
     let filtered: any[] = [];
     this.logItems = this.copyList;

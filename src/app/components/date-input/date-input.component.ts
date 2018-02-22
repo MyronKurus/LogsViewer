@@ -12,9 +12,8 @@ import * as moment from 'moment';
 export class DateInputComponent {
   private startDate: any;
   private endDate: any;
-  private displayTime: string;
-    
-  myDateRangePickerOptions: IMyDrpOptions = {
+  private displayTime: string;  
+  private myDateRangePickerOptions: IMyDrpOptions = {
     width: '402px'
   };
 
@@ -43,7 +42,7 @@ export class DateInputComponent {
     const val: string = event.srcElement.innerHTML;
     this.endDate = moment().toISOString();
     const mom = moment();
-    switch(val) {
+    switch (val) {
       case '5 min':
         this.startDate = mom.subtract(5, 'minutes').toISOString();
         break;

@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -13,6 +12,7 @@ import { LogsService } from './services/logs.service';
 import { HttpModule } from '@angular/http';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { MyDateRangePickerModule } from 'mydaterangepicker';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -29,7 +29,8 @@ import { MyDateRangePickerModule } from 'mydaterangepicker';
     FormsModule, 
     ReactiveFormsModule,
     AngularFontAwesomeModule,
-    HttpModule
+    HttpModule,
+    NgbModule.forRoot()
   ],
   providers: [ LogsService ],
   bootstrap: [ AppComponent ]

@@ -1,6 +1,7 @@
 export enum Levels {
-    DEBUG = "DEBUG",
-    INFO = "INFO",
-    WARN = "WARN",
-    ERROR = "ERROR"
+    ALL = '',
+    DEBUG = 'DEBUG',
+    INFO = 'INFO',
+    WARN = 'WARN',
+    ERROR = 'ERROR'
 }

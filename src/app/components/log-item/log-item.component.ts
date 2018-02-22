@@ -8,7 +8,7 @@ import * as moment from 'moment';
 })
 export class LogItemComponent implements OnInit {
 
-  @Input('log') logItem;
+  @Input('log') logItem: any;
   public expand: boolean = true;
   public printDate: string;
 
