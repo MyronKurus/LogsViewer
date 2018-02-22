@@ -42,26 +42,44 @@ export class LogFormComponent {
   onSwitchInputApp(event: Event) {
     event.preventDefault;
     this.inputApp = !this.inputApp;
+    this.reactiveForm['level'] = null;
+    this.reactiveForm.controls['app_code'];
   }
 
   onSwitchInputLevel(event: Event) {
     event.preventDefault;
     this.inputLevel = !this.inputLevel;
+    this.reactiveForm['app_code'] = [null];
   }
 
   onGetLogs(data, more) {
     this.logsService.generateLink(data, more)
       .subscribe(items => {
-        this.logItems = (!more) ? items : this.logItems.concat(items);
-        this.logItems.forEach(item => {
+        if (more) {
+          this.copyList = this.copyList.concat(items);
+          if (this.status === 'ALL') {
+            this.logItems = this.logItems.concat(items);
+          } else if (this.status === 'WARN') {
+            items.forEach(item => {
+              if(item.level === this.status || item.level ==='WARNING') {this.logItems.push(item)}
+            });
+          } else {
+            items.forEach(item => {
+              if(item.level === this.status) {this.logItems.push(item)}
+            });
+          }
+        } else {
+          this.logItems = items;
+          this.copyList = this.logItems;
+        }
+        this.copyList.forEach(item => {
           for(let key in this.levelsList){
             if(item.level == key) {
               this.levelsList[key] = false;
             }
           }
         });
-        this.copyList = this.logItems;
-      }, err => console.log(err));
+      }, err => alert(err));
   }
 
   onExportLogs(data) {
