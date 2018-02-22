@@ -28,6 +28,14 @@ export class LogFormComponent {
     'INFO': true,
     'WARN': true
   }
+  private initialData: Object = {
+    app_code: null,
+    company_id: null,
+    event: null,
+    level: null,
+    order_id: null,
+    site_id: null
+  }
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -60,7 +68,7 @@ export class LogFormComponent {
             this.logItems = this.logItems.concat(items);
           } else if (this.status === 'WARN') {
             items.forEach(item => {
-              if(item.level === this.status || item.level ==='WARNING') {this.logItems.push(item)}
+              if(item.level === this.status || item.level ==='WARNING') {this.logItems.push(item);}
             });
           } else {
             items.forEach(item => {
