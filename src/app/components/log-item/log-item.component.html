@@ -1,6 +1,6 @@
 <fieldset>
     <legend style="width:100%"> {{printDate}} | {{logItem.level}} | {{logItem.event_name}}</legend>
-    <p [@logState]="state[i]">{{logItem | json}}</p>
+    <p [@logState]="expand">{{logItem | json}}</p>
     <a style="bottom: 5px;" (click)="onExpandClick()" *ngIf="expand === 'active'"><fa name="angle-up"></fa></a>
     <a style="bottom: 15px;" (click)="onExpandClick()" *ngIf="expand === 'inactive'">...</a>
     <hr/>
