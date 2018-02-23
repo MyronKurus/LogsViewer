@@ -23,6 +23,7 @@ export class LogFormComponent {
   public status: string = 'ALL';
   public showMessage: boolean = false;
   public noLogsMessage: string = 'There is no logs available with selected params. Please, try to change query.';
+  public downloadLogs: any;
   public levelsList: Object = {
     'DEBUG': true,
     'ERROR': true,
@@ -90,8 +91,8 @@ export class LogFormComponent {
   }
 
   onExportLogs(data) {
-    this.logsService.exportLogs(data).subscribe(items => {}, 
-      err => console.log(err));;
+    this.logsService.exportLogs(data).subscribe((str) => {this.downloadLogs = str; console.log(this.downloadLogs);}, 
+      err => alert(err));
   }
 
   onSortByLevel(event: Event) {

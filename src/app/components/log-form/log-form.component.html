@@ -16,24 +16,17 @@
         <a style="position: absolute; top: 8px; right: 35px;" (click)="onSwitchInputApp($event)"><fa name="pencil"></fa></a>
       </div>
       <div class="col-2 col-lg-1"><label for="event">Event:</label></div>
-      <div class="col-4 col-lg-3">
-        <input type="text" id="event" class="form-control" formControlName="event">
-        <div class="alert" *ngIf="!reactiveForm.controls['event'].valid && reactiveForm.controls['event'].touched">{{ titleAlert }}</div></div>
+      <div class="col-4 col-lg-3"><input type="text" id="event" class="form-control" formControlName="event"></div>
       <div class="col-2 col-lg-1"><label for="company-id">Company Id:</label></div>
-      <div class="col-4 col-lg-3">
-        <input type="text" id="company-id" class="form-control" formControlName="company_id">
-      </div>
+      <div class="col-4 col-lg-3"><input type="text" id="company-id" class="form-control" formControlName="company_id"></div>
       <div class="col-2 col-lg-1"><label for="site-id">Site Id:</label></div>
-      <div class="col-4 col-lg-3">
-        <input type="text" id="site-id" class="form-control" formControlName="site_id">
-      </div>
+      <div class="col-4 col-lg-3"><input type="text" id="site-id" class="form-control" formControlName="site_id"></div>
       <div class="col-2 col-lg-1"><label for="order-id">Order Id:</label></div>
-      <div class="col-4 col-lg-3">
-        <input type="text" id="order-id" class="form-control" formControlName="order_id">
-      </div>
+      <div class="col-4 col-lg-3"><input type="text" id="order-id" class="form-control" formControlName="order_id"></div>
     </div>
     <button class="btn btn-primary" type="submit" [disabled]="!reactiveForm.valid">Get Logs</button>
     <button type="button" class="btn btn-success" (click)="onExportLogs(reactiveForm.value)">Export to S3</button>
+    <a *ngIf="downloadLogs !== ''" href="{{downloadLogs}}">Download Logs</a>
   </form>
 </div>
 <div class="sort-block" *ngIf="logItems && !showMessage">
