@@ -10,12 +10,14 @@ import * as moment from 'moment';
   styleUrls: ['./date-input.component.css']
 })
 export class DateInputComponent {
-  private startDate: any;
-  private endDate: any;
-  private displayTime: string;  
-  private myDateRangePickerOptions: IMyDrpOptions = {
+  startDate: any;
+  endDate: any;
+  displayTime: string;  
+  myDateRangePickerOptions: IMyDrpOptions = {
     width: '402px'
   };
+
+  model: any;
 
   constructor(private logsService: LogsService) { }
 

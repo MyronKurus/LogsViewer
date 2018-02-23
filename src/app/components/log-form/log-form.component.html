@@ -1,12 +1,11 @@
 <div class="log-info">
-  <form [formGroup]="reactiveForm" (ngSubmit)="onGetLogs(reactiveForm.value)">
+  <form [formGroup]="reactiveForm" (ngSubmit)="onGetLogs(reactiveForm.value, '')">
     <div class="row">
       <div class="col-2 col-lg-1"><label for="level-select">Level:</label></div>
       <div class="col-4 col-lg-3">
-        <select *ngIf="!inputLevel" class="form-control" id="level-select" formControlName="level">
+        <select class="form-control" id="level-select" formControlName="level">
           <option *ngFor="let item of levels | enums" [value]="item.value">{{item.key}}</option>
         </select>
-        <!-- <div class="alert" *ngIf="!reactiveForm.controls['level'].valid && reactiveForm.controls['level'].touched">{{ titleAlert }}</div> -->
       </div>
       <div class="col-2 col-lg-1"><label for="app-code">App Code:</label></div>
       <div class="col-4 col-lg-3">
@@ -14,7 +13,6 @@
           <option *ngFor="let item of appCodes | enums" [value]="item.value">{{item.key}}</option>
         </select>
         <input *ngIf="inputApp" type="text" id="app-code" class="form-control" formControlName="app_code">
-        <!-- <div class="alert" *ngIf="!reactiveForm.controls['app_code'].valid && reactiveForm.controls['app_code'].touched">{{ titleAlert }}</div> -->
         <a style="position: absolute; top: 8px; right: 35px;" (click)="onSwitchInputApp($event)"><fa name="pencil"></fa></a>
       </div>
       <div class="col-2 col-lg-1"><label for="event">Event:</label></div>
@@ -24,17 +22,14 @@
       <div class="col-2 col-lg-1"><label for="company-id">Company Id:</label></div>
       <div class="col-4 col-lg-3">
         <input type="text" id="company-id" class="form-control" formControlName="company_id">
-        <!-- <div class="alert" *ngIf="!reactiveForm.controls['company_id'].valid && reactiveForm.controls['company_id'].touched">{{ titleAlert }}</div> -->
       </div>
       <div class="col-2 col-lg-1"><label for="site-id">Site Id:</label></div>
       <div class="col-4 col-lg-3">
         <input type="text" id="site-id" class="form-control" formControlName="site_id">
-        <!-- <div class="alert" *ngIf="!reactiveForm.controls['site_id'].valid && reactiveForm.controls['site_id'].touched">{{ titleAlert }}</div> -->
       </div>
       <div class="col-2 col-lg-1"><label for="order-id">Order Id:</label></div>
       <div class="col-4 col-lg-3">
         <input type="text" id="order-id" class="form-control" formControlName="order_id">
-        <!-- <div class="alert" *ngIf="!reactiveForm.controls['order_id'].valid && reactiveForm.controls['order_id'].touched">{{ titleAlert }}</div> -->
       </div>
     </div>
     <button class="btn btn-primary" type="submit" [disabled]="!reactiveForm.valid">Get Logs</button>

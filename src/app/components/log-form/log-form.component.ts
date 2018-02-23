@@ -13,23 +13,23 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class LogFormComponent {
 
-  private reactiveForm: FormGroup;
-  private levels = Levels;
-  private appCodes = AppCodes;
-  private titleAlert: string = 'This field is required';
-  private inputApp: boolean = false;
-  private logItems: any[];
-  private copyList: any[];
-  private status: string = 'ALL';
-  private showMessage: boolean = false;
-  private noLogsMessage: string = 'There is no logs available with selected params. Please, try to change query.';
-  private levelsList: Object = {
+  public reactiveForm: FormGroup;
+  public levels = Levels;
+  public appCodes = AppCodes;
+  public titleAlert: string = 'This field is required';
+  public inputApp: boolean = false;
+  public logItems: any[];
+  public copyList: any[];
+  public status: string = 'ALL';
+  public showMessage: boolean = false;
+  public noLogsMessage: string = 'There is no logs available with selected params. Please, try to change query.';
+  public levelsList: Object = {
     'DEBUG': true,
     'ERROR': true,
     'INFO': true,
     'WARN': true
   }
-  private initialData: Object = {
+  public initialData: Object = {
     app_code: null,
     company_id: null,
     event: null,
