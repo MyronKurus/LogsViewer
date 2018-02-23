@@ -24,6 +24,7 @@ export class LogFormComponent {
   public showMessage: boolean = false;
   public noLogsMessage: string = 'There is no logs available with selected params. Please, try to change query.';
   public downloadLogs: any = '';
+  public showSpinner: boolean = false;
   public levelsList: Object = {
     'DEBUG': true,
     'ERROR': true,
@@ -62,17 +63,21 @@ export class LogFormComponent {
   }
 
   onGetLogs(data, more) {
+    this.showSpinner = true;
     this.logsService.generateLink(data, more)
       .subscribe(items => {
         if (more) {
           this.copyList = this.copyList.concat(items);
           if (this.status === 'ALL') {
             this.logItems = this.logItems.concat(items);
+            this.showSpinner = false;
           } else if (this.status === 'WARN') {
+            this.showSpinner = false;
             items.forEach(item => {
               if(item.level === this.status || item.level ==='WARNING') {this.logItems.push(item);}
             });
           } else {
+            this.showSpinner = false;
             items.forEach(item => {
               if(item.level === this.status) {this.logItems.push(item);}
             });
@@ -81,13 +86,17 @@ export class LogFormComponent {
           this.showMessage = (items.length === 0) ? true : false;
           this.logItems = items;
           this.copyList = this.logItems;
+          this.showSpinner = false;
         }
         this.copyList.forEach(item => {
           for(let key in this.levelsList){
             if(item.level == key) {this.levelsList[key] = false;}
           }
         });
-      }, err => alert(err));
+      }, err => {
+        this.showSpinner = false;
+        alert(err);
+      });
   }
 
   onExportLogs(data) {

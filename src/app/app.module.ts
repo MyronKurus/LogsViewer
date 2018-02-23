@@ -14,6 +14,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { MyDateRangePickerModule } from 'mydaterangepicker';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 
 @NgModule({
@@ -22,10 +24,12 @@ import { ClipboardModule } from 'ngx-clipboard';
     DateInputComponent,
     EnumKeysPipe,
     LogFormComponent,
-    LogItemComponent
+    LogItemComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     MyDateRangePickerModule,
     FormsModule, 
     ReactiveFormsModule,
