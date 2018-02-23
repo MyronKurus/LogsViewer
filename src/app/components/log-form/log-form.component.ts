@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Levels } from '../../enums/request-levels.enum';
 import { LogsService } from '../../services/logs.service';
@@ -23,7 +23,7 @@ export class LogFormComponent {
   public status: string = 'ALL';
   public showMessage: boolean = false;
   public noLogsMessage: string = 'There is no logs available with selected params. Please, try to change query.';
-  public downloadLogs: any;
+  public downloadLogs: any = '';
   public levelsList: Object = {
     'DEBUG': true,
     'ERROR': true,
@@ -91,8 +91,11 @@ export class LogFormComponent {
   }
 
   onExportLogs(data) {
-    this.logsService.exportLogs(data).subscribe((str) => {this.downloadLogs = str; console.log(this.downloadLogs);}, 
+    this.logsService.exportLogs(data).subscribe((str) => {this.downloadLogs = str;}, 
       err => alert(err));
+  }
+  onCopyLink() {
+
   }
 
   onSortByLevel(event: Event) {

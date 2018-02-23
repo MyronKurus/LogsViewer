@@ -58,6 +58,12 @@ a.btn-success {
     margin-bottom: 20px;
 }
 
+a.copy-button {
+    color: #007bff;
+    cursor: pointer;
+    vertical-align: -3px;
+}
+
 .no-logs p {
     text-align: center;
     margin-top: 40px;

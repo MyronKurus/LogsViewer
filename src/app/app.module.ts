@@ -13,6 +13,7 @@ import { HttpModule } from '@angular/http';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { MyDateRangePickerModule } from 'mydaterangepicker';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ClipboardModule } from 'ngx-clipboard';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     AngularFontAwesomeModule,
     HttpModule,
+    ClipboardModule,
     NgbModule.forRoot()
   ],
   providers: [ LogsService ],

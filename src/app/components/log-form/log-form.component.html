@@ -13,7 +13,8 @@
           <option *ngFor="let item of appCodes | enums" [value]="item.value">{{item.key}}</option>
         </select>
         <input *ngIf="inputApp" type="text" id="app-code" class="form-control" formControlName="app_code">
-        <a style="position: absolute; top: 8px; right: 35px;" (click)="onSwitchInputApp($event)"><fa name="pencil"></fa></a>
+        <a *ngIf="!inputApp" style="position: absolute; top: 8px; right: 35px;" (click)="onSwitchInputApp($event)"><fa name="pencil"></fa></a>
+        <a *ngIf="inputApp" style="position: absolute; top: 8px; right: 15px;" (click)="onSwitchInputApp($event)"><fa name="times"></fa></a>
       </div>
       <div class="col-2 col-lg-1"><label for="event">Event:</label></div>
       <div class="col-4 col-lg-3"><input type="text" id="event" class="form-control" formControlName="event"></div>
@@ -26,7 +27,8 @@
     </div>
     <button class="btn btn-primary" type="submit" [disabled]="!reactiveForm.valid">Get Logs</button>
     <button type="button" class="btn btn-success" (click)="onExportLogs(reactiveForm.value)">Export to S3</button>
-    <a *ngIf="downloadLogs !== ''" href="{{downloadLogs}}">Download Logs</a>
+    <a class="copy-button" *ngIf="downloadLogs !== ''" href="{{downloadLogs}}">Download Logs</a>
+    <a class="copy-button" *ngIf="downloadLogs !== ''" ngxClipboard  [cbContent]="downloadLogs">Copy link</a>
   </form>
 </div>
 <div class="sort-block" *ngIf="logItems && !showMessage">
