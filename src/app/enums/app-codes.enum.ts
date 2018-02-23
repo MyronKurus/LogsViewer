@@ -1,4 +1,5 @@
 export enum AppCodes {
+    "--" = '',
     da = 'da',
     dm = '',
     pl = 'pl',

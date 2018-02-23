@@ -17,11 +17,12 @@ export class LogFormComponent {
   private levels = Levels;
   private appCodes = AppCodes;
   private titleAlert: string = 'This field is required';
-  private inputLevel: boolean = false;
   private inputApp: boolean = false;
   private logItems: any[];
   private copyList: any[];
   private status: string = 'ALL';
+  private showMessage: boolean = false;
+  private noLogsMessage: string = 'There is no logs available with selected params. Please, try to change query.';
   private levelsList: Object = {
     'DEBUG': true,
     'ERROR': true,
@@ -76,6 +77,7 @@ export class LogFormComponent {
             });
           }
         } else {
+          this.showMessage = (items.length === 0) ? true : false;
           this.logItems = items;
           this.copyList = this.logItems;
         }

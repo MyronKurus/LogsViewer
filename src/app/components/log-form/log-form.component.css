@@ -58,6 +58,12 @@ a.btn-success {
     margin-bottom: 20px;
 }
 
+.no-logs p {
+    text-align: center;
+    margin-top: 40px;
+    font-weight: 700;
+}
+
 @keyframes alertAnimation {
     from {
         opacity: 0;
