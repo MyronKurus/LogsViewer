@@ -66,45 +66,53 @@ export class LogFormComponent {
     this.showSpinner = true;
     this.logsService.generateLink(data, more)
       .subscribe(items => {
-        if (more) {
-          this.copyList = this.copyList.concat(items);
-          if (this.status === 'ALL') {
-            this.logItems = this.logItems.concat(items);
-            this.showSpinner = false;
-          } else if (this.status === 'WARN') {
-            this.showSpinner = false;
-            items.forEach(item => {
-              if(item.level === this.status || item.level ==='WARNING') {this.logItems.push(item);}
-            });
-          } else {
-            this.showSpinner = false;
-            items.forEach(item => {
-              if(item.level === this.status) {this.logItems.push(item);}
-            });
-          }
-        } else {
-          this.showMessage = (items.length === 0) ? true : false;
-          this.logItems = items;
-          this.copyList = this.logItems;
-          this.showSpinner = false;
-        }
-        this.copyList.forEach(item => {
-          for(let key in this.levelsList){
-            if(item.level == key) {this.levelsList[key] = false;}
-          }
-        });
+        this.filterLogs(items, more);
       }, err => {
         this.showSpinner = false;
         alert(err);
       });
   }
 
-  onExportLogs(data) {
-    this.logsService.exportLogs(data).subscribe((str) => {this.downloadLogs = str;}, 
-      err => alert(err));
+  filterLogs(items, more) {
+    if (more) {
+      this.copyList = this.copyList.concat(items);
+      if (this.status === 'ALL') {
+        this.logItems = this.logItems.concat(items);
+        this.showSpinner = false;
+      } else if (this.status === 'WARN') {
+        this.showSpinner = false;
+        items.forEach(item => {
+          if(item.level === this.status || item.level ==='WARNING') {this.logItems.push(item);}
+        });
+      } else {
+        this.showSpinner = false;
+        items.forEach(item => {
+          if(item.level === this.status) {this.logItems.push(item);}
+        });
+      }
+    } else {
+      this.status = 'ALL';
+      this.showMessage = (items.length === 0) ? true : false;
+      this.logItems = items;
+      this.copyList = this.logItems;
+      this.showSpinner = false;
+    }
+    this.copyList.forEach(item => {
+      for(let key in this.levelsList) {
+        if (item.level === 'WARNING') {
+          this.levelsList['WARN'] = false;
+        } else if(item.level === key) {
+          this.levelsList[key] = false;
+        }
+      }
+    });
   }
-  onCopyLink() {
 
+  onExportLogs(data) {
+    this.logsService.exportLogs(data)
+      .subscribe((str) => {
+        this.downloadLogs = str;
+      }, err => alert(err));
   }
 
   onSortByLevel(event: Event) {
