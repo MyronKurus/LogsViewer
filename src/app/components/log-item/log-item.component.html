@@ -1,6 +1,9 @@
 <fieldset>
     <legend style="width:100%"> {{printDate}} | {{logItem.level}} | {{logItem.event_name}}</legend>
-    <pre class="show-json" [ngClass]="{'overflow': expand === 'active'}" [@logState]="expand" [innerHtml]="content"></pre>
+    <div class="show-json" [@logState]="expand">
+        <pre [ngClass]="{'overflow': expand === 'active'}" [innerHtml]="content"  *ngIf="expand === 'active'"></pre>
+        <div *ngIf="expand === 'inactive'">{{logItem|json}}</div>
+    </div>
     <a style="bottom: 5px;" (click)="onExpandClick()" *ngIf="expand === 'active'"><fa name="angle-up"></fa></a>
     <a style="bottom: 15px;" (click)="onExpandClick()" *ngIf="expand === 'inactive'">...</a>
     <hr/>

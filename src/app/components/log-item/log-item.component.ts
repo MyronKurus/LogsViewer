@@ -10,14 +10,15 @@ import { toString } from '@ng-bootstrap/ng-bootstrap/util/util';
   animations: [
     trigger('logState', [
         state('inactive', style({
-            height: '85px',
+            height: '75px'
         })),
         state('active', style({
             maxHeight: '100%'
         })),
         transition('inactive => active', animate('400ms ease-in-out')),
         transition('active => inactive', animate('400ms ease-in-out'))
-    ])
+    ]),
+  
 ]
 })
 export class LogItemComponent implements OnInit {
@@ -26,6 +27,7 @@ export class LogItemComponent implements OnInit {
   public expand: string = 'inactive';
   public printDate: string;
   public content;
+  public item;
 
 
   constructor() {}
@@ -33,15 +35,17 @@ export class LogItemComponent implements OnInit {
   ngOnInit() {
     this.printDate = moment.utc(this.logItem.created_at).local().format('HH:mm:ss DD-MMM-YYYY');
     this.content = JSON.stringify(this.logItem, undefined, 4);
+    // this.item = objToString(this.logItem);
+    this.content = syntaxHighlight(JSON.stringify(this.logItem, undefined, 4));
   }
 
   onExpandClick() {
     if(this.expand === 'inactive') {
       this.expand = 'active';
-      this.content = syntaxHighlight(JSON.stringify(this.logItem, undefined, 4));
+      // this.content = syntaxHighlight(JSON.stringify(this.logItem, undefined, 4));
     } else {
       this.expand = 'inactive';
-      this.content = JSON.stringify(this.logItem, undefined, 4);
+      // this.content = JSON.stringify(this.logItem, undefined, 4);
     }
   }
 
@@ -64,4 +68,15 @@ function syntaxHighlight(json) {
       }
       return '<span class="' + cls + '">' + match + '</span>';
   });
+}
+
+function objToString (obj) {
+  let str = '{';
+  for (let key in obj) {
+    if (typeof obj[key] == 'object') {
+      objToString(obj[key]);
+    }
+    str = str + '"' +  key + '":"' + obj[key] + '"';
+  }
+  return str + '}';
 }
