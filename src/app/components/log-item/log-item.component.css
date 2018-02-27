@@ -23,11 +23,10 @@ a:not([href]):not([tabindex]) {
 
 .show-json {
     word-wrap: break-word;
-    /* overflow: hidden; */
+    overflow: hidden;
     margin-bottom: 0;
 }
 
 .show-json.overflow {
-    word-wrap: break-word;
+    overflow-x: auto;
 }
-
