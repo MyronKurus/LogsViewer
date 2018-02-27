@@ -36,7 +36,6 @@ export class LogItemComponent implements OnInit {
   ngOnInit() {
     this.printDate = moment.utc(this.logItem.created_at).local().format('HH:mm:ss DD-MMM-YYYY');
     this.content = JSON.stringify(this.logItem, undefined, 4);
-    // this.item = objToString(this.logItem);
     this.content = syntaxHighlight(JSON.stringify(this.logItem, undefined, 4));
   }
 
@@ -48,7 +47,7 @@ export class LogItemComponent implements OnInit {
       this.expand = 'inactive';
       setTimeout(()=>{
         this.text = true;
-      }, 420);
+      }, 350);
     }
   }
 
@@ -71,15 +70,4 @@ function syntaxHighlight(json) {
       }
       return '<span class="' + cls + '">' + match + '</span>';
   });
-}
-
-function objToString (obj) {
-  let str = '{';
-  for (let key in obj) {
-    if (typeof obj[key] == 'object') {
-      objToString(obj[key]);
-    }
-    str = str + '"' +  key + '":"' + obj[key] + '"';
-  }
-  return str + '}';
 }
