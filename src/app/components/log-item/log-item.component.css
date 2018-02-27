@@ -21,8 +21,13 @@ a:not([href]):not([tabindex]) {
     font-size: 35px;
 }
 
-p {
-    word-wrap: break-word; 
-    overflow: hidden;
+.show-json {
+    word-wrap: break-word;
+    /* overflow: hidden; */
     margin-bottom: 0;
 }
+
+.show-json.overflow {
+    word-wrap: break-word;
+}
+

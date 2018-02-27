@@ -25,6 +25,7 @@ export class LogFormComponent {
   public noLogsMessage: string = 'There is no logs available with selected params. Please, try to change query.';
   public downloadLogs: any = '';
   public showSpinner: boolean = false;
+  public logsLength: number = 0;
   public levelsList: Object = {
     'DEBUG': true,
     'ERROR': true,
@@ -96,16 +97,24 @@ export class LogFormComponent {
       this.logItems = items;
       this.copyList = this.logItems;
       this.showSpinner = false;
+      this.logsLength = items.length;
     }
-    this.copyList.forEach(item => {
-      for(let key in this.levelsList) {
-        if (item.level === 'WARNING') {
-          this.levelsList['WARN'] = false;
-        } else if(item.level === key) {
-          this.levelsList[key] = false;
+
+    if (items.message) {
+      alert(items.message);
+    }
+
+    if (this.logsLength) {
+      this.copyList.forEach(item => {
+        for(let key in this.levelsList) {
+          if (item.level === 'WARNING') {
+            this.levelsList['WARN'] = false;
+          } else if(item.level === key) {
+            this.levelsList[key] = false;
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   onExportLogs(data) {

@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+.string { color: green; }
+.number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: magenta; }
+.key { color: red; }

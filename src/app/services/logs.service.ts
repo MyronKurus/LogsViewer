@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 // import 'rxjs/add/observable/from';
+import { logsData } from '../data/logs-data';
 
 @Injectable()
 export class LogsService {
@@ -28,7 +29,7 @@ export class LogsService {
         src += ` and ${key} eq \'${data[key]}\'`;
       }
     }
-    return this.getLogs(src);
+    return this.getLogs();
   }
 
   exportLogs(data): Observable<any[]> {
@@ -40,14 +41,20 @@ export class LogsService {
       }
     }
     src += `&export=true`;
-    return this.getLogs(src);
+    return this.getLogs();
   }
 
-  getLogs(src): Observable<any[]> {
-    return this.http.get(src)
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  // getLogs(src): Observable<any[]> {
+  //   return this.http.get(src)
+  //     .map((res: Response) => res.json())
+  //     .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  // }
+
+  getLogs() {
+    return Observable.of(logsData).map(items => items)
   }
+
+
 
   setPeriod(dateStart, dateEnd) {
     this.dateFrom = dateStart;

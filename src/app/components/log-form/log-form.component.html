@@ -13,8 +13,8 @@
           <option *ngFor="let item of appCodes | enums" [value]="item.value">{{item.key}}</option>
         </select>
         <input *ngIf="inputApp" type="text" id="app-code" class="form-control" formControlName="app_code">
-        <a *ngIf="!inputApp" style="position: absolute; top: 8px; right: 35px;" (click)="onSwitchInputApp($event)"><fa name="pencil"></fa></a>
-        <a *ngIf="inputApp" style="position: absolute; top: 8px; right: 15px;" (click)="onSwitchInputApp($event)"><fa name="times"></fa></a>
+        <a *ngIf="!inputApp" style="position: absolute; top: 8px; left: -12px;" (click)="onSwitchInputApp($event)"><fa name="pencil"></fa></a>
+        <a *ngIf="inputApp" style="position: absolute; top: 7px; right: 15px;" (click)="onSwitchInputApp($event)"><fa name="times"></fa></a>
       </div>
       <div class="col-2 col-lg-1"><label for="event">Event:</label></div>
       <div class="col-4 col-lg-3"><input type="text" id="event" class="form-control" formControlName="event"></div>
@@ -31,7 +31,7 @@
     <a class="copy-button" *ngIf="downloadLogs !== ''" ngxClipboard  [cbContent]="downloadLogs">Copy link</a>
   </form>
 </div>
-<div class="sort-block" *ngIf="logItems && !showMessage">
+<div class="sort-block" *ngIf="logsLength && !showMessage">
   <ul class="nav nav-tabs">
     <li class="nav-item"><a [ngClass]="{'active': status==='ALL'}" class="nav-link" (click)="onSortByLevel($event)">ALL</a></li>
     <li class="nav-item"><a [ngClass]="{'active': status==='ERROR'}" class="nav-link" (click)="onSortByLevel($event)" [class.disabled]="levelsList['ERROR'] ? true : null">ERROR</a></li>
@@ -40,12 +40,11 @@
     <li class="nav-item"><a [ngClass]="{'active': status==='WARN'}" class="nav-link" (click)="onSortByLevel($event)" [class.disabled]="levelsList['WARN'] ? true : null">WARN</a></li>
   </ul>
 </div>
-<div class="logs-list" *ngIf="logItems">
+<div class="logs-list" *ngIf="logsLength">
   <app-log-item *ngFor="let logItem of logItems" [log]="logItem"></app-log-item>
   <button *ngIf="logItems && !showMessage" class="btn btn-link" type="button" (click)="onGetLogs(reactiveForm.value, 'more')">Load More</button>
   <div *ngIf="showMessage" class="no-logs">
     <p>{{noLogsMessage}}</p>    
   </div>
 </div>
-
 <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
