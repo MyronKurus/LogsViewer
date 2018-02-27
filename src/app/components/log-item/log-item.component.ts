@@ -28,6 +28,7 @@ export class LogItemComponent implements OnInit {
   public printDate: string;
   public content;
   public item;
+  public text = true;
 
 
   constructor() {}
@@ -42,10 +43,12 @@ export class LogItemComponent implements OnInit {
   onExpandClick() {
     if(this.expand === 'inactive') {
       this.expand = 'active';
-      // this.content = syntaxHighlight(JSON.stringify(this.logItem, undefined, 4));
+      this.text = false;
     } else {
       this.expand = 'inactive';
-      // this.content = JSON.stringify(this.logItem, undefined, 4);
+      setTimeout(()=>{
+        this.text = true;
+      }, 420);
     }
   }
 
