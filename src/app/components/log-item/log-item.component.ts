@@ -18,8 +18,7 @@ import { toString } from '@ng-bootstrap/ng-bootstrap/util/util';
         transition('inactive => active', animate('400ms ease-in-out')),
         transition('active => inactive', animate('400ms ease-in-out'))
     ]),
-  
-]
+  ]
 })
 export class LogItemComponent implements OnInit {
 
@@ -27,15 +26,12 @@ export class LogItemComponent implements OnInit {
   public expand: string = 'inactive';
   public printDate: string;
   public content;
-  public item;
   public text = true;
-
 
   constructor() {}
 
   ngOnInit() {
     this.printDate = moment.utc(this.logItem.created_at).local().format('HH:mm:ss DD-MMM-YYYY');
-    this.content = JSON.stringify(this.logItem, undefined, 4);
     this.content = syntaxHighlight(JSON.stringify(this.logItem, undefined, 4));
   }
 

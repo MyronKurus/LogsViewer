@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -15,10 +15,14 @@ export class LogsService {
   private skip: number = 0;
   private top: number = 20;
   private total: number = 20;
+  private token;
 
   constructor(private http:Http) {}
 
   generateLink(data, more): Observable<any[]> {
+
+    let headers = new Headers();
+    headers.append('token', this.token);
     if (more === 'more') {
       this.skip += 20;
       this.total += 20;
@@ -29,10 +33,12 @@ export class LogsService {
         src += ` and ${key} eq \'${data[key]}\'`;
       }
     }
-    return this.getLogs();
+    return this.getLogs(src, {headers: headers});
   }
 
   exportLogs(data): Observable<any[]> {
+    let headers = new Headers();
+    headers.append('token', this.token);
     this.skip = 0;
     let src = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=${this.skip}&$top=${this.total}&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
     for(let key in data) {
@@ -41,19 +47,23 @@ export class LogsService {
       }
     }
     src += `&export=true`;
-    return this.getLogs();
+    return this.getLogs(src, {headers: headers});
   }
 
-  // getLogs(src): Observable<any[]> {
-  //   return this.http.get(src)
-  //     .map((res: Response) => res.json())
-  //     .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  getLogs(src, headers): Observable<any[]> {
+    return this.http.get(src, headers)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  // getLogs() {
+  //   return Observable.of(logsData).map(items => items)
   // }
 
-  getLogs() {
-    return Observable.of(logsData).map(items => items)
+  getUserToken(payload) {
+    this.http.post('https://dev-xprtbackend.heartlandcommerce.com/v1/token', payload)
+      .subscribe((res:any) => this.token = res._body);
   }
-
 
 
   setPeriod(dateStart, dateEnd) {

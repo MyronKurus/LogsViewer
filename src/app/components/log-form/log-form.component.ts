@@ -26,20 +26,22 @@ export class LogFormComponent {
   public downloadLogs: any = '';
   public showSpinner: boolean = false;
   public logsLength: number = 0;
+  public user: string = '';
+  public password: string = '';
   public levelsList: Object = {
     'DEBUG': true,
     'ERROR': true,
     'INFO': true,
     'WARN': true
   }
-  public initialData: Object = {
-    app_code: null,
-    company_id: null,
-    event: null,
-    level: null,
-    order_id: null,
-    site_id: null
-  }
+  // public initialData: Object = {
+  //   app_code: null,
+  //   company_id: null,
+  //   event: null,
+  //   level: null,
+  //   order_id: null,
+  //   site_id: null
+  // }
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -54,6 +56,15 @@ export class LogFormComponent {
       'site_id': [null],
       'order_id': [null]
     });
+  }
+
+  open(content) {
+    this.modalService.open(content);
+  }
+
+  onSignIn() {
+    // console.log('SignIn');
+    this.logsService.getUserToken({ user:this.user,password:this.password });
   }
 
   onSwitchInputApp(event: Event) {
