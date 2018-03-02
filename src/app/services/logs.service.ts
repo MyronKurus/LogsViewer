@@ -22,7 +22,7 @@ export class LogsService {
   generateLink(data, more): Observable<any[]> {
 
     let headers = new Headers();
-    headers.append('token', this.token);
+    headers.append('Authorization',`Bearer ${this.token}`);
     if (more === 'more') {
       this.skip += 20;
       this.total += 20;
@@ -38,7 +38,7 @@ export class LogsService {
 
   exportLogs(data): Observable<any[]> {
     let headers = new Headers();
-    headers.append('token', this.token);
+    headers.append('Authorization',`Bearer ${this.token}`);
     this.skip = 0;
     let src = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=${this.skip}&$top=${this.total}&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
     for(let key in data) {
@@ -61,8 +61,8 @@ export class LogsService {
   // }
 
   getUserToken(payload) {
-    this.http.post('https://dev-xprtbackend.heartlandcommerce.com/v1/token', payload)
-      .subscribe((res:any) => this.token = res._body);
+    return this.http.post('https://dev-xprtbackend.heartlandcommerce.com/v1/token', payload)
+      .map((res:any) => this.token = res._body);
   }
 
 

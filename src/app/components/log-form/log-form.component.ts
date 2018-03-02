@@ -28,6 +28,7 @@ export class LogFormComponent {
   public logsLength: number = 0;
   public user: string = '';
   public password: string = '';
+  public signedIn: boolean = false;
   public levelsList: Object = {
     'DEBUG': true,
     'ERROR': true,
@@ -63,8 +64,10 @@ export class LogFormComponent {
   }
 
   onSignIn() {
-    // console.log('SignIn');
-    this.logsService.getUserToken({ user:this.user,password:this.password });
+    this.logsService.getUserToken({ user:this.user,password:this.password })
+      .subscribe(res => {
+        this.signedIn = true;
+      }, err => alert(err));
   }
 
   onSwitchInputApp(event: Event) {
