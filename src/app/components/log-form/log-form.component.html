@@ -1,5 +1,6 @@
 <div class="log-info">
-  <form [formGroup]="reactiveForm" (ngSubmit)="onGetLogs(reactiveForm.value, '')">
+  <input *ngIf="fullTextSearch" type="text" id="event" class="form-control" [(ngModel)]="fullTextQuery">
+  <form *ngIf="!fullTextSearch" [formGroup]="reactiveForm">
     <div class="row">
       <div class="col-2 col-lg-1"><label for="level-select">Level:</label></div>
       <div class="col-4 col-lg-3">
@@ -25,12 +26,18 @@
       <div class="col-2 col-lg-1"><label for="order-id">Order Id:</label></div>
       <div class="col-4 col-lg-3"><input type="text" id="order-id" class="form-control" formControlName="order_id"></div>
     </div>
-    <button type="button" class="btn btn-outline-primary" (click)="open(content)">Sign In</button>
-    <button class="btn btn-primary" type="submit" [disabled]="!reactiveForm.valid">Get Logs</button>
-    <button type="button" class="btn btn-success" (click)="onExportLogs(reactiveForm.value)">Export to S3</button>
-    <a class="copy-button" *ngIf="downloadLogs !== ''" href="{{downloadLogs}}">Download Logs</a>
-    <a class="copy-button" *ngIf="downloadLogs !== ''" ngxClipboard  [cbContent]="downloadLogs">Copy link</a>
   </form>
+  <button type="button" class="btn btn-outline-primary" (click)="open(content)">Sign In</button>
+  <button type="button" class="btn btn-outline-primary" (click)="onFulltextSwitch()">Full Text Search</button>
+
+  <button *ngIf="fullTextSearch" class="btn btn-primary" type="submit" (click)="onGetLogs(fullTextQuery, '')">Get Logs</button>
+  <button *ngIf="!fullTextSearch" class="btn btn-primary" type="submit" (click)="onGetLogs(reactiveForm.value, '')">Get Logs</button>
+  <button *ngIf="fullTextSearch" type="button" class="btn btn-success" (click)="onExportLogs(fullTextQuery, 'export')">Export to S3</button>
+  <button *ngIf="!fullTextSearch" type="button" class="btn btn-success" (click)="onExportLogs(reactiveForm.value, 'export')">Export to S3</button>
+
+  <a class="copy-button" *ngIf="downloadLogs !== ''" href="{{downloadLogs}}">Download Logs</a>
+  <a class="copy-button" *ngIf="downloadLogs !== ''" ngxClipboard  [cbContent]="downloadLogs">Copy link</a>
+
 </div>
 <div class="sort-block" *ngIf="logsLength && !showMessage">
   <h5>Total: {{logsLength}}</h5>

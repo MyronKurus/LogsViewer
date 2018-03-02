@@ -16,7 +16,6 @@ export class LogFormComponent {
   public reactiveForm: FormGroup;
   public levels = Levels;
   public appCodes = AppCodes;
-  public titleAlert: string = 'This field is required';
   public inputApp: boolean = false;
   public logItems: any[];
   public copyList: any[];
@@ -30,6 +29,8 @@ export class LogFormComponent {
   public password: string = '';
   public signedIn: boolean = false;
   public uniqueFields: any[] = [];
+  public fullTextQuery: string = '';
+  public fullTextSearch: boolean = false;
   public levelsList: Object = {
     'DEBUG': true,
     'ERROR': true,
@@ -39,7 +40,7 @@ export class LogFormComponent {
 
   constructor(
     private formBuilder: FormBuilder, 
-    private logsService: LogsService, 
+    private logsService: LogsService,
     private modalService: NgbModal
   ) {
     this.reactiveForm = formBuilder.group({
@@ -79,6 +80,10 @@ export class LogFormComponent {
         this.showSpinner = false;
         alert(err);
       });
+  }
+
+  onFulltextSwitch() {
+    this.fullTextSearch = !this.fullTextSearch;
   }
 
   filterLogs(items, more) {
@@ -126,25 +131,24 @@ export class LogFormComponent {
   }
 
   filterFields(logsList: any[]) {
-    logsList.forEach(item=> {
+    logsList.forEach(item => {
       for (let key in item) {
         if (this.uniqueFields.indexOf(key) < 0) {
           this.uniqueFields.push(key);
         }
       }
     });
-    console.log(this.uniqueFields);
+    return this.uniqueFields;
   }
 
-  onExportLogs(data) {
-    this.logsService.exportLogs(data)
+  onExportLogs(data, exp) {
+    this.logsService.generateLink(data, exp)
       .subscribe((str) => {
         this.downloadLogs = str;
       }, err => alert(err));
   }
 
   onSortByLevel(event: Event) {
-
     if (event.srcElement.classList.contains('disabled')) {return;}
     const val: string = event.srcElement.innerHTML;
     let filtered: any[] = [];

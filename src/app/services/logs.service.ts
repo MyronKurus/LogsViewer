@@ -12,7 +12,7 @@ export class LogsService {
 
   private dateFrom: string;
   private dateTill: string;
-  private skip: number = 0;
+  private skip: number;
   private top: number = 20;
   private total: number = 20;
   private token;
@@ -23,35 +23,42 @@ export class LogsService {
 
     let headers = new Headers();
     headers.append('Authorization',`Bearer ${this.token}`);
+
     if (more === 'more') {
       this.skip += 20;
       this.total += 20;
     }
-    let src = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=${this.skip}&$top=${this.top}&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
-    for(let key in data) {
-      if(data[key]) {
-        src += ` and ${key} eq \'${data[key]}\'`;
+    let src = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=${this.skip}&$top=${this.top}&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`;
+    if (typeof data === 'string') {
+      src += data;
+    } else {
+      for(let key in data) {
+        if(data[key]) {
+          src += ` and ${key} eq \'${data[key]}\'`;
+        }
       }
     }
-    // return this.getLogs(src, {headers: headers});
+    if (more === 'export') {
+      src += `&export=true`;
+    }
     return this.getLogs();
   }
 
-  exportLogs(data): Observable<any[]> {
-    let headers = new Headers();
-    headers.append('Authorization',`Bearer ${this.token}`);
-    this.skip = 0;
-    let src = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=${this.skip}&$top=${this.total}&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
-    for(let key in data) {
-      if(data[key]) {
-        src += ` and ${key} eq \'${data[key]}\'`;
-      }
-    }
-    src += `&export=true`;
-    // return this.getLogs(src, {headers: headers});
-    return this.getLogs();
+  // exportLogs(data): Observable<any[]> {
+  //   let headers = new Headers();
+  //   headers.append('Authorization',`Bearer ${this.token}`);
+  //   this.skip = 0;
+  //   let src = `https://xenial-log-reader-dev-1575566368.us-east-1.elb.amazonaws.com/es?$skip=${this.skip}&$top=${this.total}&$filter=created_at gt \'${this.dateFrom}\' and created_at le \'${this.dateTill}\'`
+  //   for(let key in data) {
+  //     if(data[key]) {
+  //       src += ` and ${key} eq \'${data[key]}\'`;
+  //     }
+  //   }
+  //   src += `&export=true`;
+  //   // return this.getLogs(src, {headers: headers});
+  //   return this.getLogs();
 
-  }
+  // }
 
   // getLogs(src, headers): Observable<any[]> {
   //   return this.http.get(src, headers)
@@ -67,7 +74,6 @@ export class LogsService {
     return this.http.post('https://dev-xprtbackend.heartlandcommerce.com/v1/token', payload)
       .map((res:any) => this.token = res._body);
   }
-
 
   setPeriod(dateStart, dateEnd) {
     this.dateFrom = dateStart;
