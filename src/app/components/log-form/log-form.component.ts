@@ -87,6 +87,7 @@ export class LogFormComponent {
   }
 
   filterLogs(items, more) {
+    this.logsLength += items.length;
     if (more) {
       this.copyList = this.copyList.concat(items);
       if (this.status === 'ALL') {
@@ -109,12 +110,11 @@ export class LogFormComponent {
       this.logItems = items;
       this.copyList = this.logItems;
       this.showSpinner = false;
-      this.logsLength = items.length;
       this.filterFields(this.copyList);
     }
 
     if (items.message) {
-      alert(items.message);
+      alert(items.message); 
     }
 
     if (this.logsLength) {

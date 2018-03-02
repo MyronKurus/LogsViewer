@@ -12,7 +12,7 @@ export class LogsService {
 
   private dateFrom: string;
   private dateTill: string;
-  private skip: number;
+  private skip: number = 0;
   private top: number = 20;
   private total: number = 20;
   private token;
@@ -41,7 +41,8 @@ export class LogsService {
     if (more === 'export') {
       src += `&export=true`;
     }
-    return this.getLogs();
+    // return this.getLogs();
+    return this.getLogs(src, {headers: headers});
   }
 
   // exportLogs(data): Observable<any[]> {
@@ -60,15 +61,15 @@ export class LogsService {
 
   // }
 
-  // getLogs(src, headers): Observable<any[]> {
-  //   return this.http.get(src, headers)
-  //     .map((res: Response) => res.json())
-  //     .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-  // }
-
-  getLogs() {
-    return Observable.of(logsData).map(items => items)
+  getLogs(src, headers): Observable<any[]> {
+    return this.http.get(src, headers)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
+
+  // getLogs() {
+  //   return Observable.of(logsData).map(items => items)
+  // }
 
   getUserToken(payload) {
     return this.http.post('https://dev-xprtbackend.heartlandcommerce.com/v1/token', payload)
