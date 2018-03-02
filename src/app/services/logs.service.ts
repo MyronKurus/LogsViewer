@@ -33,7 +33,8 @@ export class LogsService {
         src += ` and ${key} eq \'${data[key]}\'`;
       }
     }
-    return this.getLogs(src, {headers: headers});
+    // return this.getLogs(src, {headers: headers});
+    return this.getLogs();
   }
 
   exportLogs(data): Observable<any[]> {
@@ -47,18 +48,20 @@ export class LogsService {
       }
     }
     src += `&export=true`;
-    return this.getLogs(src, {headers: headers});
+    // return this.getLogs(src, {headers: headers});
+    return this.getLogs();
+
   }
 
-  getLogs(src, headers): Observable<any[]> {
-    return this.http.get(src, headers)
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-  }
-
-  // getLogs() {
-  //   return Observable.of(logsData).map(items => items)
+  // getLogs(src, headers): Observable<any[]> {
+  //   return this.http.get(src, headers)
+  //     .map((res: Response) => res.json())
+  //     .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   // }
+
+  getLogs() {
+    return Observable.of(logsData).map(items => items)
+  }
 
   getUserToken(payload) {
     return this.http.post('https://dev-xprtbackend.heartlandcommerce.com/v1/token', payload)

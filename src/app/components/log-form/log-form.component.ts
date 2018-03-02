@@ -29,20 +29,13 @@ export class LogFormComponent {
   public user: string = '';
   public password: string = '';
   public signedIn: boolean = false;
+  public uniqueFields: any[] = [];
   public levelsList: Object = {
     'DEBUG': true,
     'ERROR': true,
     'INFO': true,
     'WARN': true
   }
-  // public initialData: Object = {
-  //   app_code: null,
-  //   company_id: null,
-  //   event: null,
-  //   level: null,
-  //   order_id: null,
-  //   site_id: null
-  // }
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -112,6 +105,7 @@ export class LogFormComponent {
       this.copyList = this.logItems;
       this.showSpinner = false;
       this.logsLength = items.length;
+      this.filterFields(this.copyList);
     }
 
     if (items.message) {
@@ -129,6 +123,17 @@ export class LogFormComponent {
         }
       });
     }
+  }
+
+  filterFields(logsList: any[]) {
+    logsList.forEach(item=> {
+      for (let key in item) {
+        if (this.uniqueFields.indexOf(key) < 0) {
+          this.uniqueFields.push(key);
+        }
+      }
+    });
+    console.log(this.uniqueFields);
   }
 
   onExportLogs(data) {
