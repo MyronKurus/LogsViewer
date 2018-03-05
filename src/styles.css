@@ -4,3 +4,5 @@
 .boolean { color: #5d64f2; }
 .null { color: #000; }
 .key { color: #0e6e88; }
+
+.modal-content { margin-top: 160px; }

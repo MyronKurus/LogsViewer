@@ -1,5 +1,7 @@
 <div class="log-info">
+  
   <input *ngIf="fullTextSearch" type="text" id="event" class="form-control" [(ngModel)]="fullTextQuery">
+
   <form *ngIf="!fullTextSearch" [formGroup]="reactiveForm">
     <div class="row">
       <div class="col-2 col-lg-1"><label for="level-select">Level:</label></div>
@@ -27,16 +29,21 @@
       <div class="col-4 col-lg-3"><input type="text" id="order-id" class="form-control" formControlName="order_id"></div>
     </div>
   </form>
-  <button type="button" class="btn btn-outline-primary" (click)="open(content)">Sign In</button>
-  <button type="button" class="btn btn-outline-primary" (click)="onFulltextSwitch()">Full Text Search</button>
 
-  <button *ngIf="fullTextSearch" class="btn btn-primary" type="submit" (click)="onGetLogs(fullTextQuery, '')">Get Logs</button>
-  <button *ngIf="!fullTextSearch" class="btn btn-primary" type="submit" (click)="onGetLogs(reactiveForm.value, '')">Get Logs</button>
-  <button *ngIf="fullTextSearch" type="button" class="btn btn-success" (click)="onExportLogs(fullTextQuery, 'export')">Export to S3</button>
-  <button *ngIf="!fullTextSearch" type="button" class="btn btn-success" (click)="onExportLogs(reactiveForm.value, 'export')">Export to S3</button>
 
+  <button *ngIf="!signedIn" type="button" class="btn btn-outline-primary" (click)="open(content)">Sign In</button>
+  <div *ngIf="signedIn">
+    <button type="button" style="min-width: 135px;" class="btn btn-outline-primary" (click)="onFulltextSwitch()">Full Text Search</button>
+    <button *ngIf="fullTextSearch" class="btn btn-primary" type="submit" (click)="onGetLogs(fullTextQuery, '')">Get Logs</button>
+    <button *ngIf="!fullTextSearch" class="btn btn-primary" type="submit" (click)="onGetLogs(reactiveForm.value, '')">Get Logs</button>
+    <button *ngIf="fullTextSearch" type="button" class="btn btn-success" (click)="onExportLogs(fullTextQuery, 'export')">Export to S3</button>
+    <button *ngIf="!fullTextSearch" type="button" class="btn btn-success" (click)="onExportLogs(reactiveForm.value, 'export')">Export to S3</button>
+  </div>
   <a class="copy-button" *ngIf="downloadLogs !== ''" href="{{downloadLogs}}">Download Logs</a>
   <a class="copy-button" *ngIf="downloadLogs !== ''" ngxClipboard  [cbContent]="downloadLogs">Copy link</a>
+
+
+
 
 </div>
 <div class="sort-block" *ngIf="logsLength && !showMessage">
@@ -49,6 +56,10 @@
     <li class="nav-item"><a [ngClass]="{'active': status==='WARN'}" class="nav-link" (click)="onSortByLevel($event)" [class.disabled]="levelsList['WARN'] ? true : null">WARN</a></li>
   </ul>
 </div>
+
+
+
+
 <div class="logs-list" *ngIf="logsLength">
   <app-log-item *ngFor="let logItem of logItems" [log]="logItem"></app-log-item>
   <button *ngIf="logItems && !showMessage" class="btn btn-link" type="button" (click)="onGetLogs(reactiveForm.value, 'more')">Load More</button>
@@ -57,6 +68,10 @@
   <p>{{noLogsMessage}}</p>    
 </div>
 <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+
+
+
+
 
 <ng-template #content let-close="close" let-d="dismiss">
   <div class="modal-header">
@@ -75,8 +90,8 @@
     <p> You have been successfully signed in! </p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="onSignIn()" *ngIf="!signedIn">Sign In</button>
-    <button type="button" class="btn btn-outline-dark" (click)="close()">Close</button>
+    <button type="button" class="btn btn-outline-primary" (click)="onSignIn()" *ngIf="!signedIn">Sign In</button>
+    <button type="button" class="btn btn-outline-danger" (click)="close()">Close</button>
   </div>
 </ng-template>
 

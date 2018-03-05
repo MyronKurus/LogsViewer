@@ -31,7 +31,7 @@ export class LogFormComponent {
   public uniqueFields: any[] = [];
   public fullTextQuery: string = '';
   public fullTextSearch: boolean = false;
-  public levelsList: Object = {
+  public levelsList: Object = {  
     'DEBUG': true,
     'ERROR': true,
     'INFO': true,
@@ -87,7 +87,7 @@ export class LogFormComponent {
   }
 
   filterLogs(items, more) {
-    this.logsLength += items.length;
+    this.setDisableTabsList();
     if (more) {
       this.copyList = this.copyList.concat(items);
       if (this.status === 'ALL') {
@@ -104,6 +104,7 @@ export class LogFormComponent {
           if(item.level === this.status) {this.logItems.push(item);}
         });
       }
+      this.logsLength = this.logItems.length;
     } else {
       this.status = 'ALL';
       this.showMessage = (items.length === 0) ? true : false;
@@ -111,6 +112,7 @@ export class LogFormComponent {
       this.copyList = this.logItems;
       this.showSpinner = false;
       this.filterFields(this.copyList);
+      this.logsLength = this.logItems.length;
     }
 
     if (items.message) {
@@ -139,6 +141,12 @@ export class LogFormComponent {
       }
     });
     return this.uniqueFields;
+  }
+
+  setDisableTabsList() {
+    for(let key in this.levelsList) {
+      this.levelsList[key] = true;
+    }
   }
 
   onExportLogs(data, exp) {
