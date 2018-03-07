@@ -31,9 +31,10 @@
   </form>
 
 
-  <button *ngIf="!signedIn" type="button" class="btn btn-outline-primary" (click)="open(content)">Sign In</button>
-  <div *ngIf="signedIn">
-    <button type="button" style="min-width: 135px;" class="btn btn-outline-primary" (click)="onFulltextSwitch()">Full Text Search</button>
+  <!-- <button *ngIf="!signedIn" type="button" class="btn btn-outline-primary" (click)="open(content)">Sign In</button> -->
+  <div>
+  <!-- <div *ngIf="signedIn"> -->
+    <button type="button" style="min-width: 135px;" class="btn btn-outline-primary" (click)="onFulltextSwitch()">{{fullTextButton}}</button>
     <button *ngIf="fullTextSearch" class="btn btn-primary" type="submit" (click)="onGetLogs(fullTextQuery, '')">Get Logs</button>
     <button *ngIf="!fullTextSearch" class="btn btn-primary" type="submit" (click)="onGetLogs(reactiveForm.value, '')">Get Logs</button>
     <button *ngIf="fullTextSearch" type="button" class="btn btn-success" (click)="onExportLogs(fullTextQuery, 'export')">Export to S3</button>
@@ -73,7 +74,7 @@
 
 
 
-<ng-template #content let-close="close" let-d="dismiss">
+<!-- <ng-template #content let-close="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Sign In</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -93,5 +94,5 @@
     <button type="button" class="btn btn-outline-primary" (click)="onSignIn()" *ngIf="!signedIn">Sign In</button>
     <button type="button" class="btn btn-outline-danger" (click)="close()">Close</button>
   </div>
-</ng-template>
+</ng-template> -->
 

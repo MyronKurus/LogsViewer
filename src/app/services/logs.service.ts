@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 // import 'rxjs/add/observable/from';
-import { logsData } from '../data/logs-data';
+import { token } from '../data/logs-data';
 
 @Injectable()
 export class LogsService {
@@ -15,14 +15,15 @@ export class LogsService {
   private skip: number = 0;
   private top: number = 20;
   private total: number = 20;
-  private token;
+  // private token;
 
   constructor(private http:Http) {}
 
   generateLink(data, more): Observable<any[]> {
 
     let headers = new Headers();
-    headers.append('Authorization',`Bearer ${this.token}`);
+    headers.append('Authorization',`Bearer ${token}`);
+    // console.log(token);
 
     if (more === 'more') {
       this.skip += 20;
@@ -71,10 +72,10 @@ export class LogsService {
   //   return Observable.of(logsData).map(items => items)
   // }
 
-  getUserToken(payload) {
-    return this.http.post('https://dev-xprtbackend.heartlandcommerce.com/v1/token', payload)
-      .map((res:any) => this.token = res._body);
-  }
+  // getUserToken(payload) {
+  //   return this.http.post('https://dev-xprtbackend.heartlandcommerce.com/v1/token', payload)
+  //     .map((res:any) => this.token = res._body);
+  // }
 
   setPeriod(dateStart, dateEnd) {
     this.dateFrom = dateStart;

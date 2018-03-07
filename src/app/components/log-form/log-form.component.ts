@@ -27,10 +27,11 @@ export class LogFormComponent {
   public logsLength: number = 0;
   public user: string = '';
   public password: string = '';
-  public signedIn: boolean = false;
+  // public signedIn: boolean = false;
   public uniqueFields: any[] = [];
   public fullTextQuery: string = '';
   public fullTextSearch: boolean = false;
+  public fullTextButton: string = 'Full Text Search';
   public levelsList: Object = {  
     'DEBUG': true,
     'ERROR': true,
@@ -57,12 +58,12 @@ export class LogFormComponent {
     this.modalService.open(content);
   }
 
-  onSignIn() {
-    this.logsService.getUserToken({ user:this.user,password:this.password })
-      .subscribe(res => {
-        this.signedIn = true;
-      }, err => alert(err));
-  }
+  // onSignIn() {
+  //   this.logsService.getUserToken({ user:this.user,password:this.password })
+  //     .subscribe(res => {
+  //       this.signedIn = true;
+  //     }, err => alert(err));
+  // }
 
   onSwitchInputApp(event: Event) {
     event.preventDefault;
@@ -84,6 +85,8 @@ export class LogFormComponent {
 
   onFulltextSwitch() {
     this.fullTextSearch = !this.fullTextSearch;
+    this.fullTextButton = (this.fullTextSearch) ? 'Search by fields' : 'Full Text Search'
+
   }
 
   filterLogs(items, more) {
